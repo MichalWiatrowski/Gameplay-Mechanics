@@ -1,0 +1,31 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-GameplayMechanics-6942.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\GameplayMechanicsEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\Archer.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\Arrow.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\FlyingArrow.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\GameplayMechanics.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\GameplayMechanicsCharacter.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\GameplayMechanicsGameMode.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\GameplayMechanicsHUD.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\GameplayMechanicsProjectile.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\ScatterArrow.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\StandardArrow.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\Archer.gen.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\Arrow.gen.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\FlyingArrow.gen.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\GameplayMechanics.init.gen.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\GameplayMechanicsCharacter.gen.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\GameplayMechanicsGameMode.gen.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\GameplayMechanicsHUD.gen.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\GameplayMechanicsProjectile.gen.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\ScatterArrow.gen.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\StandardArrow.gen.cpp.obj"
+"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\PCLaunch.rc.res"
+/OUT:"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\UE4Editor-GameplayMechanics-6942.lib"

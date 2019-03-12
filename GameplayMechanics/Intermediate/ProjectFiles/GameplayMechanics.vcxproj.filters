@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\GameplayMechanics.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{C4551D5F-D8E6-45A9-AA3A-B3D645CC4B4C}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\GameplayMechanics.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\GameplayMechanicsEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{3C928F0B-82CB-42EF-BF22-D908870CC4D6}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\GameplayMechanics">
+      <UniqueIdentifier>{48E1D9BD-F315-46A8-87FC-3B2D28E12F58}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\GameplayMechanics\GameplayMechanics.Build.cs">
+      <Filter>Source\GameplayMechanics</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\GameplayMechanics\GameplayMechanics.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\GameplayMechanics\GameplayMechanics.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\GameplayMechanics\GameplayMechanicsCharacter.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\GameplayMechanics\GameplayMechanicsCharacter.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\GameplayMechanics\GameplayMechanicsGameMode.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\GameplayMechanics\GameplayMechanicsGameMode.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\GameplayMechanics\GameplayMechanicsHUD.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\GameplayMechanics\GameplayMechanicsHUD.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\GameplayMechanics\GameplayMechanicsProjectile.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\GameplayMechanics\GameplayMechanicsProjectile.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\GameplayMechanics\FlyingArrow.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GameplayMechanics\Archer.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GameplayMechanics\Arrow.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GameplayMechanics\StandardArrow.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GameplayMechanics\ScatterArrow.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\GameplayMechanics\FlyingArrow.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GameplayMechanics\Archer.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GameplayMechanics\Arrow.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GameplayMechanics\StandardArrow.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GameplayMechanics\ScatterArrow.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
