@@ -1,7 +1,8 @@
 // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
 
 #pragma once
-
+#include "TestArrow.h"
+#include "SonicArrow.h"
 #include "CoreMinimal.h"
 #include "FlyingArrow.h"
 #include "ScatterArrow.h"

@@ -13,6 +13,7 @@ AScatterArrow::AScatterArrow()
 	collisionComponent->BodyInstance.SetCollisionProfileName("Projectile");
 	collisionComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	collisionComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldStatic, ECollisionResponse::ECR_Block);
+	collisionComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_PhysicsBody, ECollisionResponse::ECR_Block);
 	collisionComponent->OnComponentHit.AddDynamic(this, &AScatterArrow::OnHit);		// set up a notification for when this component hits something blocking
 
 
@@ -94,15 +95,14 @@ void AScatterArrow::updateArrowVelocityRotation()
 
 void AScatterArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	//// Only add impulse and destroy projectile if we hit a physics
-	//if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
-	//{
-	//	OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+	// Only add impulse and destroy projectile if we hit a physics
+	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
+	{
+		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		
+	}
+	Destroy();
 
-		Destroy();
-	//}
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("HIT HIT HIT WOWOWOWOWOWO")));
 	float maxSpeed = 7000;
 	UWorld* const World = GetWorld();
 
@@ -118,27 +118,7 @@ void AScatterArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPri
 	FActorSpawnParameters ActorSpawnParams;
 	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	AFlyingArrow* newArrow[5];
-	//for (int i = 0; i < 8; i++)
-	//{
 
-
-	//	FVector oneLOL = (((GetActorForwardVector() * Hit.Normal) * -2) * Hit.Normal) + GetActorForwardVector();
-
-
-
-	//	UKismetMathLibrary::BreakRotator(UKismetMathLibrary::MakeRotFromX(oneLOL), arrowAxes.X, arrowAxes.Y, arrowAxes.Z);
-	//	
-
-	//
-	//	FRotator SpawnRotation = UKismetMathLibrary::MakeRotator(arrowAxes.X, arrowAxes.Y, arrowAxes.Z - ((-5 + i ) * 2));
-
-	//	
-
-	//	newArrow[i]= GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-	//	newArrow[i]->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
-
-	//	
-	//}
 	FVector oneLOL = (((GetActorForwardVector() * Hit.Normal) * -2) * Hit.Normal) + GetActorForwardVector();
 	UKismetMathLibrary::BreakRotator(UKismetMathLibrary::MakeRotFromX(oneLOL), arrowAxes.X, arrowAxes.Y, arrowAxes.Z);
 	FRotator SpawnRotation;
@@ -191,20 +171,4 @@ void AScatterArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPri
 
 	newArrow[0] = GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
 	newArrow[0]->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
-
-
-
-
-
-
-
-
-
-	/*float maxSpeed = 3000;
-	FVector idk = UKismetMathLibrary::GetReflectionVector((GetActorLocation() - Hit.ImpactPoint), Hit.ImpactNormal);
-
-	FRotator SpawnRotation = UKismetMathLibrary::MakeRotator(idk.X, idk.Y, idk.Z);
-	SetActorRotation(SpawnRotation);
-
-	maxSpeed = 3000;*/
 }

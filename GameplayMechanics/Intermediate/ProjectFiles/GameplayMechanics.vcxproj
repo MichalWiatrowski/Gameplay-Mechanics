@@ -500,9 +500,13 @@
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\GameplayMechanics\ScatterArrow.cpp" />
+    <ClCompile Include="..\..\Source\GameplayMechanics\SonicArrow.cpp" />
     <ClCompile Include="..\..\Source\GameplayMechanics\StandardArrow.cpp" />
+    <ClCompile Include="..\..\Source\GameplayMechanics\TestArrow.cpp" />
     <ClInclude Include="..\..\Source\GameplayMechanics\ScatterArrow.h" />
+    <ClInclude Include="..\..\Source\GameplayMechanics\SonicArrow.h" />
     <ClInclude Include="..\..\Source\GameplayMechanics\StandardArrow.h" />
+    <ClInclude Include="..\..\Source\GameplayMechanics\TestArrow.h" />
     <None Include="..\..\GameplayMechanics.uproject" />
     <None Include="..\..\Source\GameplayMechanics.Target.cs" />
     <None Include="..\..\Source\GameplayMechanicsEditor.Target.cs" />

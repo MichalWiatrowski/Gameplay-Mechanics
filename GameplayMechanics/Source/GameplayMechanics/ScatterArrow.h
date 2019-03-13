@@ -20,21 +20,21 @@ public:
 	// Sets default values for this actor's properties
 	AScatterArrow();
 
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	void updateArrowVelocityRotation();
+
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
 
-	UFUNCTION()
-		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
-
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 	USphereComponent* collisionComponent;
 	UProjectileMovementComponent* projectileMovement;
 	UStaticMeshComponent* arrowMesh;
-	void updateArrowVelocityRotation();
-
-	
 };

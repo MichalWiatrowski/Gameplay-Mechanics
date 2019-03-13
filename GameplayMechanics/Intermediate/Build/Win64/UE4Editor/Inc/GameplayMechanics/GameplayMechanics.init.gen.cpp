@@ -19,8 +19,8 @@ void EmptyLinkFunctionForGeneratedCodeGameplayMechanics_init() {}
 			static const UE4CodeGen_Private::FPackageParams PackageParams = {
 				"/Script/GameplayMechanics",
 				PKG_CompiledIn | 0x00000000,
-				0xD184A813,
-				0x12C621CF,
+				0xB93841E9,
+				0x239BDD65,
 				nullptr, 0,
 				METADATA_PARAMS(nullptr, 0)
 			};

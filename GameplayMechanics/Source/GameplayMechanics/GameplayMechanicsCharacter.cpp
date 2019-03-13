@@ -46,6 +46,7 @@ AGameplayMechanicsCharacter::AGameplayMechanicsCharacter()
 	FP_Gun->SetOnlyOwnerSee(true);			// only the owning player will see this mesh
 	FP_Gun->bCastDynamicShadow = false;
 	FP_Gun->CastShadow = false;
+	
 	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
 	FP_Gun->SetupAttachment(RootComponent);
 
@@ -176,6 +177,10 @@ void AGameplayMechanicsCharacter::Tick(float DeltaTime)
 	{
 		arrowType = 2;
 	}
+	else if (GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::Three))
+	{
+		arrowType = 3;
+	}
 	bowPullBack(DeltaTime);
 }
 void AGameplayMechanicsCharacter::bowPullBack(float DeltaTime)
@@ -211,6 +216,9 @@ void AGameplayMechanicsCharacter::shootArrow()
 			AStandardArrow* newArrow = GetWorld()->SpawnActor<AStandardArrow>(AStandardArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
 			newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
 			maxSpeed = 1500;
+			/*ATestArrow* newArrow = GetWorld()->SpawnActor<ATestArrow>(ATestArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
+			newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
+			maxSpeed = 1500;*/
 		}
 		
 		else if (arrowType == 2)
@@ -219,7 +227,13 @@ void AGameplayMechanicsCharacter::shootArrow()
 			newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
 			maxSpeed = 1500;
 		}
-		
+
+		else if (arrowType == 3)
+		{
+			ASonicArrow* newArrow = GetWorld()->SpawnActor<ASonicArrow>(ASonicArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
+			newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
+			maxSpeed = 1500;
+		}
 	}
 	
 }

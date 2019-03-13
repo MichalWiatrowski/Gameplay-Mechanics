@@ -2,8 +2,6 @@
 
 #pragma once
 
-
-#include "StandardArrow.h"
 #include "DrawDebugHelpers.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "CoreMinimal.h"
@@ -13,7 +11,7 @@
 #include "FlyingArrow.generated.h"
 
 UCLASS()
-class GAMEPLAYMECHANICS_API AFlyingArrow : public AStandardArrow
+class GAMEPLAYMECHANICS_API AFlyingArrow : public AActor
 {
 	GENERATED_BODY()
 
@@ -21,20 +19,23 @@ public:
 	// Sets default values for this actor's properties
 	AFlyingArrow();
 
+	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	void updateArrowVelocityRotation();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:
-	virtual void Tick(float DeltaTime) override;
+	
 	USphereComponent* collisionComponent;
 	UProjectileMovementComponent* projectileMovement;
 	UStaticMeshComponent* arrowMesh;
-	void updateArrowVelocityRotation();
-
-
-	UFUNCTION()
-		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	
 	int numberOfBounces = 0;
 	FVector lastPosition;
 };

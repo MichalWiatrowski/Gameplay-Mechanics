@@ -82,6 +82,12 @@
     <ClInclude Include="..\..\Source\GameplayMechanics\ScatterArrow.h">
       <Filter>Source\GameplayMechanics</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\GameplayMechanics\TestArrow.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GameplayMechanics\SonicArrow.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\GameplayMechanics\FlyingArrow.cpp">
@@ -97,6 +103,12 @@
       <Filter>Source\GameplayMechanics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\GameplayMechanics\ScatterArrow.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GameplayMechanics\TestArrow.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GameplayMechanics\SonicArrow.cpp">
       <Filter>Source\GameplayMechanics</Filter>
     </ClCompile>
   </ItemGroup>

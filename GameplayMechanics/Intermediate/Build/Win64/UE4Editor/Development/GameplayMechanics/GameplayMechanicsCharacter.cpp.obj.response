@@ -412,20 +412,20 @@
 /I ThirdParty
 /I ThirdParty\libSampleRate\Public
 /I ThirdParty\libSampleRate
-/I "C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Inc\GameplayMechanics"
-/I "C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Source"
-/I "C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Source\GameplayMechanics"
+/I C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Inc\GameplayMechanics
+/I C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Source
+/I C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Source\GameplayMechanics
 /I "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\INCLUDE"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\ucrt"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\shared"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\um"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\winrt"
-/FI"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\GameplayMechanicsEditor\Development\Engine\SharedPCH.Engine.h"
-/Yu"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\GameplayMechanicsEditor\Development\Engine\SharedPCH.Engine.h"
-/Fp"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\GameplayMechanicsEditor\Development\Engine\SharedPCH.Engine.h.pch"
-"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Source\GameplayMechanics\GameplayMechanicsCharacter.cpp"
-/FI"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\Definitions.GameplayMechanics.h"
-/Fo"C:\Users\Michal\Documents\Unreal Projects\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\GameplayMechanicsCharacter.cpp.obj"
+/FI"C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\GameplayMechanicsEditor\Development\Engine\SharedPCH.Engine.h"
+/Yu"C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\GameplayMechanicsEditor\Development\Engine\SharedPCH.Engine.h"
+/Fp"C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\GameplayMechanicsEditor\Development\Engine\SharedPCH.Engine.h.pch"
+"C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Source\GameplayMechanics\GameplayMechanicsCharacter.cpp"
+/FI"C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\Definitions.GameplayMechanics.h"
+/Fo"C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\GameplayMechanicsCharacter.cpp.obj"
 /TP
 /GR-
 /W4
