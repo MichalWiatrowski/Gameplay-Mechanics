@@ -21,11 +21,11 @@ ASonicArrow::ASonicArrow()
 
 
 	sonicCollisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SonicComponent"));
-	sonicCollisionComponent->InitSphereRadius(1000.0f);
+	sonicCollisionComponent->InitSphereRadius(0.01f);
 
 	sonicCollisionComponent->BodyInstance.SetCollisionProfileName("Projectile");
 	sonicCollisionComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
-	sonicCollisionComponent->Deactivate();
+	
 	
 	
 	sonicCollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &ASonicArrow::OnOverlapBegin);	
@@ -80,7 +80,7 @@ void ASonicArrow::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	updateArrowVelocityRotation();
 
-	if (hitLOL == true)
+	if (hitSomething == true)
 	DrawDebugSphere(GetWorld(), GetActorLocation(), sonicCollisionComponent->GetScaledSphereRadius(), 32, FColor(0, 0, 255), true, 0.01, 0, 5);
 }
 
@@ -114,9 +114,9 @@ void ASonicArrow::updateArrowVelocityRotation()
 
 void ASonicArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	hitLOL = true;
+	hitSomething = true;
 	//DrawDebugSphere(GetWorld(), GetActorLocation(), sonicCollisionComponent->GetScaledSphereRadius(), 32, FColor(0, 0, 255), true, 0.1, 0, 5);
-	sonicCollisionComponent->Activate();
+	sonicCollisionComponent->SetSphereRadius(1000.0f);
 }
 
 

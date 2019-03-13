@@ -39,12 +39,13 @@ protected:
 
 public:	
 	
-	bool hitLOL = false;
+	bool hitSomething = false;
 	UPROPERTY(EditAnywhere)
 	USphereComponent* sonicCollisionComponent;
 
 	UPROPERTY(EditAnywhere)
 	USphereComponent* collisionComponent;
+
 
 	UProjectileMovementComponent* projectileMovement;
 	UStaticMeshComponent* arrowMesh;
