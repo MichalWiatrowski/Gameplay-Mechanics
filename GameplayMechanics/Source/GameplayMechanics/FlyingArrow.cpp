@@ -66,7 +66,7 @@ void AFlyingArrow::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	DrawDebugLine(GetWorld(), lastPosition, GetActorLocation(), FColor(0, 0, 255), true, -1, 0, 12.333);
+	DrawDebugLine(GetWorld(), lastPosition, GetActorLocation(), FColor(0, 0, 255), true, 0.3, 0, 12.333);
 
 	//execute the rotation function
 	updateArrowVelocityRotation();

@@ -123,10 +123,7 @@ void AGameplayMechanicsCharacter::SetupPlayerInputComponent(class UInputComponen
 	// Bind fire event
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AGameplayMechanicsCharacter::OnFire);
 
-	// Enable touchscreen input
-	EnableTouchscreenMovement(PlayerInputComponent);
 
-	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AGameplayMechanicsCharacter::OnResetVR);
 
 	// Bind movement events
 	PlayerInputComponent->BindAxis("MoveForward", this, &AGameplayMechanicsCharacter::MoveForward);
@@ -145,23 +142,10 @@ void AGameplayMechanicsCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//if (playerController->IsInputKeyDown(EKeys::LeftMouseButton))
+
 	if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::LeftMouseButton))
 	{
 		isCharging = true;
-		//UWorld* const World = GetWorld();
-
-		//const FRotator SpawnRotation = GetControlRotation();
-
-		//const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
-		//FActorSpawnParameters ActorSpawnParams;
-		//ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
-		////World->SpawnActor<AGameplayMechanicsProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-
-
-
-		//AFlyingArrow* newArrow = GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
 	}
 	else if (GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::LeftMouseButton))
 	{
@@ -182,6 +166,34 @@ void AGameplayMechanicsCharacter::Tick(float DeltaTime)
 		arrowType = 3;
 	}
 	bowPullBack(DeltaTime);
+
+	wallClimb();
+
+	
+	
+
+}
+
+void AGameplayMechanicsCharacter::wallClimb()
+{
+	FHitResult hitResult;
+	FCollisionQueryParams CollisionParams;
+	GetWorld()->LineTraceSingleByChannel(hitResult, GetActorLocation(), (GetActorLocation() + (GetActorForwardVector() * 100)), ECC_Visibility, CollisionParams);
+
+
+	static const FName ClimbableTag = TEXT("climbable");
+	if (hitResult.bBlockingHit)
+	{
+		if (hitResult.GetActor()->ActorHasTag(ClimbableTag))
+		{
+
+			climbTime = GetWorld()->GetFirstPlayerController()->GetInputKeyTimeDown(EKeys::SpaceBar);
+			if (climbTime > 0.0f && climbTime < 1.0f)
+			{
+				LaunchCharacter(FVector(0, 0, 350), true, true);
+			}
+		}
+	}
 }
 void AGameplayMechanicsCharacter::bowPullBack(float DeltaTime)
 {

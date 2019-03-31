@@ -84,7 +84,8 @@ public:
 	float maxSpeed = 1500.0f;
 	void bowPullBack(float DeltaTime);
 	void shootArrow();
-
+	void wallClimb();
+	float climbTime = 0.0f;
 	int arrowType = 1;
 
 
