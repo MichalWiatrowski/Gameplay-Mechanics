@@ -15,7 +15,7 @@ void EmptyLinkFunctionForGeneratedCodeSonicArrow() {}
 // Cross Module References
 	GAMEPLAYMECHANICS_API UClass* Z_Construct_UClass_ASonicArrow_NoRegister();
 	GAMEPLAYMECHANICS_API UClass* Z_Construct_UClass_ASonicArrow();
-	ENGINE_API UClass* Z_Construct_UClass_AActor();
+	GAMEPLAYMECHANICS_API UClass* Z_Construct_UClass_ABaseArrow();
 	UPackage* Z_Construct_UPackage__Script_GameplayMechanics();
 	GAMEPLAYMECHANICS_API UFunction* Z_Construct_UFunction_ASonicArrow_OnHit();
 	ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FHitResult();
@@ -24,7 +24,6 @@ void EmptyLinkFunctionForGeneratedCodeSonicArrow() {}
 	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 	GAMEPLAYMECHANICS_API UFunction* Z_Construct_UFunction_ASonicArrow_OnOverlapBegin();
 	GAMEPLAYMECHANICS_API UFunction* Z_Construct_UFunction_ASonicArrow_OnOverlapEnd();
-	ENGINE_API UClass* Z_Construct_UClass_USphereComponent_NoRegister();
 // End Cross Module References
 	void ASonicArrow::StaticRegisterNativesASonicArrow()
 	{
@@ -260,20 +259,11 @@ void EmptyLinkFunctionForGeneratedCodeSonicArrow() {}
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_collisionComponent_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_collisionComponent;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_sonicCollisionComponent_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_sonicCollisionComponent;
-		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
 	};
 	UObject* (*const Z_Construct_UClass_ASonicArrow_Statics::DependentSingletons[])() = {
-		(UObject* (*)())Z_Construct_UClass_AActor,
+		(UObject* (*)())Z_Construct_UClass_ABaseArrow,
 		(UObject* (*)())Z_Construct_UPackage__Script_GameplayMechanics,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_ASonicArrow_Statics::FuncInfo[] = {
@@ -287,26 +277,6 @@ void EmptyLinkFunctionForGeneratedCodeSonicArrow() {}
 		{ "ModuleRelativePath", "SonicArrow.h" },
 	};
 #endif
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ASonicArrow_Statics::NewProp_collisionComponent_MetaData[] = {
-		{ "Category", "SonicArrow" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "SonicArrow.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASonicArrow_Statics::NewProp_collisionComponent = { UE4CodeGen_Private::EPropertyClass::Object, "collisionComponent", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000080009, 1, nullptr, STRUCT_OFFSET(ASonicArrow, collisionComponent), Z_Construct_UClass_USphereComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ASonicArrow_Statics::NewProp_collisionComponent_MetaData, ARRAY_COUNT(Z_Construct_UClass_ASonicArrow_Statics::NewProp_collisionComponent_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ASonicArrow_Statics::NewProp_sonicCollisionComponent_MetaData[] = {
-		{ "Category", "SonicArrow" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "SonicArrow.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASonicArrow_Statics::NewProp_sonicCollisionComponent = { UE4CodeGen_Private::EPropertyClass::Object, "sonicCollisionComponent", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000080009, 1, nullptr, STRUCT_OFFSET(ASonicArrow, sonicCollisionComponent), Z_Construct_UClass_USphereComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ASonicArrow_Statics::NewProp_sonicCollisionComponent_MetaData, ARRAY_COUNT(Z_Construct_UClass_ASonicArrow_Statics::NewProp_sonicCollisionComponent_MetaData)) };
-	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ASonicArrow_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASonicArrow_Statics::NewProp_collisionComponent,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASonicArrow_Statics::NewProp_sonicCollisionComponent,
-	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_ASonicArrow_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ASonicArrow>::IsAbstract,
 	};
@@ -315,7 +285,7 @@ void EmptyLinkFunctionForGeneratedCodeSonicArrow() {}
 		DependentSingletons, ARRAY_COUNT(DependentSingletons),
 		0x009000A0u,
 		FuncInfo, ARRAY_COUNT(FuncInfo),
-		Z_Construct_UClass_ASonicArrow_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UClass_ASonicArrow_Statics::PropPointers),
+		nullptr, 0,
 		nullptr,
 		&StaticCppClassTypeInfo,
 		nullptr, 0,
@@ -330,7 +300,7 @@ void EmptyLinkFunctionForGeneratedCodeSonicArrow() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(ASonicArrow, 259610499);
+	IMPLEMENT_CLASS(ASonicArrow, 4246883351);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_ASonicArrow(Z_Construct_UClass_ASonicArrow, &ASonicArrow::StaticClass, TEXT("/Script/GameplayMechanics"), TEXT("ASonicArrow"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(ASonicArrow);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

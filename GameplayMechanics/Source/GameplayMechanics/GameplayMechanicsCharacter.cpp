@@ -12,6 +12,7 @@
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 
+
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -32,78 +33,32 @@ AGameplayMechanicsCharacter::AGameplayMechanicsCharacter()
 	FirstPersonCameraComponent->RelativeLocation = FVector(-39.56f, 1.75f, 64.f); // Position the camera
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
-	// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
-	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
-	Mesh1P->SetOnlyOwnerSee(true);
-	Mesh1P->SetupAttachment(FirstPersonCameraComponent);
-	Mesh1P->bCastDynamicShadow = false;
-	Mesh1P->CastShadow = false;
-	Mesh1P->RelativeRotation = FRotator(1.9f, -19.19f, 5.2f);
-	Mesh1P->RelativeLocation = FVector(-0.5f, -4.4f, -155.7f);
-
-	// Create a gun mesh component
-	FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
-	FP_Gun->SetOnlyOwnerSee(true);			// only the owning player will see this mesh
-	FP_Gun->bCastDynamicShadow = false;
-	FP_Gun->CastShadow = false;
-	
-	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
-	FP_Gun->SetupAttachment(RootComponent);
-
-	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
-	FP_MuzzleLocation->SetupAttachment(FP_Gun);
-	FP_MuzzleLocation->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
-
 	// Default offset from the character location for projectiles to spawn
 	GunOffset = FVector(100.0f, 0.0f, 10.0f);
 
-	// Note: The ProjectileClass and the skeletal mesh/anim blueprints for Mesh1P, FP_Gun, and VR_Gun 
-	// are set in the derived blueprint asset named MyCharacter to avoid direct content references in C++.
 
-	// Create VR Controllers.
-	R_MotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("R_MotionController"));
-	R_MotionController->MotionSource = FXRMotionControllerBase::RightHandSourceId;
-	R_MotionController->SetupAttachment(RootComponent);
-L_MotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("L_MotionController"));
-L_MotionController->SetupAttachment(RootComponent);
 
-// Create a gun and attach it to the right-hand VR controller.
-// Create a gun mesh component
-VR_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("VR_Gun"));
-VR_Gun->SetOnlyOwnerSee(true);			// only the owning player will see this mesh
-VR_Gun->bCastDynamicShadow = false;
-VR_Gun->CastShadow = false;
-VR_Gun->SetupAttachment(R_MotionController);
-VR_Gun->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+	bowMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BowVisualRepresentation"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> bowMeshAsset(TEXT("/Game/bowMesh.bowMesh"));
 
-VR_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("VR_MuzzleLocation"));
-VR_MuzzleLocation->SetupAttachment(VR_Gun);
-VR_MuzzleLocation->SetRelativeLocation(FVector(0.000004, 53.999992, 10.000000));
-VR_MuzzleLocation->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));		// Counteract the rotation of the VR gun model.
+	if (bowMeshAsset.Succeeded())
+	{
+		bowMesh->SetStaticMesh(bowMeshAsset.Object);
+		bowMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 
-// Uncomment the following line to turn motion controllers on by default:
-//bUsingMotionControllers = true;
+
+		bowMesh->bCastDynamicShadow = false;
+		bowMesh->CastShadow = false;
+		bowMesh->SetupAttachment(FirstPersonCameraComponent);
+		bowMesh->SetRelativeLocation(FVector(60.0f, -20.0f, -60.0f));
+	}
 }
 
 void AGameplayMechanicsCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
-
-	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
-	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
-
-	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
-	if (bUsingMotionControllers)
-	{
-		VR_Gun->SetHiddenInGame(false, true);
-		Mesh1P->SetHiddenInGame(true, true);
-	}
-	else
-	{
-		VR_Gun->SetHiddenInGame(true, true);
-		Mesh1P->SetHiddenInGame(false, true);
-	}
+	scatterTimer = scatterArrowCooldown;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -117,13 +72,6 @@ void AGameplayMechanicsCharacter::SetupPlayerInputComponent(class UInputComponen
 	// Bind jump events
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
-
-
-
-	// Bind fire event
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AGameplayMechanicsCharacter::OnFire);
-
-
 
 	// Bind movement events
 	PlayerInputComponent->BindAxis("MoveForward", this, &AGameplayMechanicsCharacter::MoveForward);
@@ -157,7 +105,7 @@ void AGameplayMechanicsCharacter::Tick(float DeltaTime)
 	{
 		arrowType = 1;
 	}
-	else if (GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::Two))
+	else if (GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::Two) && scatterArrowReady == true)
 	{
 		arrowType = 2;
 	}
@@ -165,35 +113,68 @@ void AGameplayMechanicsCharacter::Tick(float DeltaTime)
 	{
 		arrowType = 3;
 	}
-	bowPullBack(DeltaTime);
 
-	wallClimb();
-
-	
-	
-
-}
-
-void AGameplayMechanicsCharacter::wallClimb()
-{
-	FHitResult hitResult;
-	FCollisionQueryParams CollisionParams;
-	GetWorld()->LineTraceSingleByChannel(hitResult, GetActorLocation(), (GetActorLocation() + (GetActorForwardVector() * 100)), ECC_Visibility, CollisionParams);
-
-
-	static const FName ClimbableTag = TEXT("climbable");
-	if (hitResult.bBlockingHit)
+	if (scatterArrowReady == false)
 	{
-		if (hitResult.GetActor()->ActorHasTag(ClimbableTag))
+		scatterTimer += DeltaTime;
+		if (scatterTimer > scatterArrowCooldown)
 		{
-
-			climbTime = GetWorld()->GetFirstPlayerController()->GetInputKeyTimeDown(EKeys::SpaceBar);
-			if (climbTime > 0.0f && climbTime < 1.0f)
-			{
-				LaunchCharacter(FVector(0, 0, 350), true, true);
-			}
+			
+			scatterArrowReady = true;
 		}
 	}
+
+	bowPullBack(DeltaTime);
+
+	wallClimb(DeltaTime);
+}
+
+void AGameplayMechanicsCharacter::wallClimb(float DeltaTime)
+{
+
+	FCollisionQueryParams CollisionParams;
+	
+	if (canClimb == true)
+	{
+		FHitResult wallHitResult;
+		GetWorld()->LineTraceSingleByChannel(wallHitResult, GetActorLocation(), (GetActorLocation() + (GetActorForwardVector() * 60)), ECC_Visibility, CollisionParams);
+
+		if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::SpaceBar))
+		{
+
+			static const FName ClimbableTag = TEXT("climbable");
+
+			if (wallHitResult.bBlockingHit && wallHitResult.GetActor()->ActorHasTag(ClimbableTag))
+			{
+				climbTime += DeltaTime;
+				isClimbing = true;
+				if (climbTime > 0.0f && climbTime < 0.7f && canClimb == true)
+				{
+					LaunchCharacter(FVector(0, 0, 450), true, true);
+				}
+			}
+		}
+
+
+		if ((GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::SpaceBar) && isClimbing == true ) || (climbTime >= 0.7 && isClimbing == true))
+		{
+			canClimb = false;
+		}
+
+	}
+	else if (canClimb == false)
+	{
+		FHitResult groundHitResult;
+		GetWorld()->LineTraceSingleByChannel(groundHitResult, GetActorLocation(), (GetActorLocation() + (-GetActorUpVector() * 120)), ECC_Visibility, CollisionParams);
+
+		if (groundHitResult.bBlockingHit)
+		{
+			climbTime = 0.0f;
+			canClimb = true;
+			isClimbing = false;
+		}
+	}
+
 }
 void AGameplayMechanicsCharacter::bowPullBack(float DeltaTime)
 {
@@ -208,7 +189,7 @@ void AGameplayMechanicsCharacter::bowPullBack(float DeltaTime)
 			if (GEngine)
 				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), maxSpeed));
 		}
-		
+
 	}
 }
 void AGameplayMechanicsCharacter::shootArrow()
@@ -219,7 +200,7 @@ void AGameplayMechanicsCharacter::shootArrow()
 
 		const FRotator SpawnRotation = GetControlRotation();
 
-		const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
+		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(GunOffset);
 		FActorSpawnParameters ActorSpawnParams;
 		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
@@ -228,16 +209,20 @@ void AGameplayMechanicsCharacter::shootArrow()
 			AStandardArrow* newArrow = GetWorld()->SpawnActor<AStandardArrow>(AStandardArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
 			newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
 			maxSpeed = 1500;
-			/*ATestArrow* newArrow = GetWorld()->SpawnActor<ATestArrow>(ATestArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-			newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
-			maxSpeed = 1500;*/
+
 		}
-		
+
 		else if (arrowType == 2)
 		{
 			AScatterArrow* newArrow = GetWorld()->SpawnActor<AScatterArrow>(AScatterArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
 			newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
 			maxSpeed = 1500;
+
+
+			scatterArrowReady = false;
+			scatterTimer = 0.0f;
+
+			arrowType = 1;
 		}
 
 		else if (arrowType == 3)
@@ -247,44 +232,8 @@ void AGameplayMechanicsCharacter::shootArrow()
 			maxSpeed = 1500;
 		}
 	}
-	
-}
-void AGameplayMechanicsCharacter::OnFire()
-{
-	
 
 }
-
-void AGameplayMechanicsCharacter::OnResetVR()
-{
-	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
-}
-
-void AGameplayMechanicsCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	if (TouchItem.bIsPressed == true)
-	{
-		return;
-	}
-	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
-	{
-		OnFire();
-	}
-	TouchItem.bIsPressed = true;
-	TouchItem.FingerIndex = FingerIndex;
-	TouchItem.Location = Location;
-	TouchItem.bMoved = false;
-}
-
-void AGameplayMechanicsCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	if (TouchItem.bIsPressed == false)
-	{
-		return;
-	}
-	TouchItem.bIsPressed = false;
-}
-
 
 void AGameplayMechanicsCharacter::MoveForward(float Value)
 {
@@ -316,17 +265,3 @@ void AGameplayMechanicsCharacter::LookUpAtRate(float Rate)
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-bool AGameplayMechanicsCharacter::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
-{
-	if (FPlatformMisc::SupportsTouchInput() || GetDefault<UInputSettings>()->bUseMouseForTouch)
-	{
-		PlayerInputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AGameplayMechanicsCharacter::BeginTouch);
-		PlayerInputComponent->BindTouch(EInputEvent::IE_Released, this, &AGameplayMechanicsCharacter::EndTouch);
-
-		//Commenting this out to be more consistent with FPS BP template.
-		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &AGameplayMechanicsCharacter::TouchUpdate);
-		return true;
-	}
-	
-	return false;
-}

@@ -17,7 +17,7 @@ struct FHitResult;
 #endif
 #define GAMEPLAYMECHANICS_StandardArrow_generated_h
 
-#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_RPC_WRAPPERS \
+#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execOnHit) \
 	{ \
@@ -33,7 +33,7 @@ struct FHitResult;
 	}
 
 
-#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execOnHit) \
 	{ \
@@ -49,25 +49,25 @@ struct FHitResult;
 	}
 
 
-#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_INCLASS_NO_PURE_DECLS \
+#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAStandardArrow(); \
 	friend struct Z_Construct_UClass_AStandardArrow_Statics; \
 public: \
-	DECLARE_CLASS(AStandardArrow, AActor, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/GameplayMechanics"), NO_API) \
+	DECLARE_CLASS(AStandardArrow, ABaseArrow, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/GameplayMechanics"), NO_API) \
 	DECLARE_SERIALIZER(AStandardArrow)
 
 
-#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_INCLASS \
+#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_INCLASS \
 private: \
 	static void StaticRegisterNativesAStandardArrow(); \
 	friend struct Z_Construct_UClass_AStandardArrow_Statics; \
 public: \
-	DECLARE_CLASS(AStandardArrow, AActor, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/GameplayMechanics"), NO_API) \
+	DECLARE_CLASS(AStandardArrow, ABaseArrow, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/GameplayMechanics"), NO_API) \
 	DECLARE_SERIALIZER(AStandardArrow)
 
 
-#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_STANDARD_CONSTRUCTORS \
+#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API AStandardArrow(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AStandardArrow) \
@@ -80,7 +80,7 @@ private: \
 public:
 
 
-#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_ENHANCED_CONSTRUCTORS \
+#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API AStandardArrow(AStandardArrow&&); \
@@ -91,26 +91,26 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AStandardArrow); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AStandardArrow)
 
 
-#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_PRIVATE_PROPERTY_OFFSET
-#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_15_PROLOG
-#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_GENERATED_BODY_LEGACY \
+#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_PRIVATE_PROPERTY_OFFSET
+#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_9_PROLOG
+#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_PRIVATE_PROPERTY_OFFSET \
-	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_RPC_WRAPPERS \
-	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_INCLASS \
-	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_STANDARD_CONSTRUCTORS \
+	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_PRIVATE_PROPERTY_OFFSET \
+	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_RPC_WRAPPERS \
+	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_INCLASS \
+	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_GENERATED_BODY \
+#define GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_PRIVATE_PROPERTY_OFFSET \
-	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
-	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_INCLASS_NO_PURE_DECLS \
-	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_18_ENHANCED_CONSTRUCTORS \
+	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_PRIVATE_PROPERTY_OFFSET \
+	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
+	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_INCLASS_NO_PURE_DECLS \
+	GameplayMechanics_Source_GameplayMechanics_StandardArrow_h_12_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

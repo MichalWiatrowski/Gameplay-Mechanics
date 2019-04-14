@@ -1,41 +1,29 @@
-﻿  Performing full C++ include scan (hot reloading a new target)
-  Using 'git status' to determine working set for adaptive non-unity build (C:\Users\Michal\Desktop\IDIE\Gameplay-Mechanics).
-  Creating makefile for hot reloading GameplayMechanicsEditor (game project files are newer)
-  Compiling game modules for hot reload
+﻿  Using 'git status' to determine working set for adaptive non-unity build (C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics).
+  Creating makefile for GameplayMechanicsEditor (no existing makefile)
   Using Visual Studio 2017 14.16.27023 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023) and Windows 10.0.17763.0 SDK (C:\Program Files (x86)\Windows Kits\10).
-  Parsing headers for GameplayMechanicsEditor
-    Running UnrealHeaderTool "C:\Users\Michal\Desktop\IDIE\Gameplay-Mechanics\GameplayMechanics\GameplayMechanics.uproject" "C:\Users\Michal\Desktop\IDIE\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\GameplayMechanicsEditor\Development\GameplayMechanicsEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -installed
-  Reflection code generated for GameplayMechanicsEditor in 8.5872515 seconds
-  Building 28 actions with 8 processes...
-    [1/28] PCLaunch.rc
-    [2/28] SharedPCH.Engine.cpp
-    [3/28] GameplayMechanicsProjectile.gen.cpp
-    [4/28] GameplayMechanics.init.gen.cpp
-    [5/28] GameplayMechanicsHUD.gen.cpp
-    [6/28] GameplayMechanicsGameMode.gen.cpp
-    [7/28] SonicArrow.gen.cpp
-    [8/28] StandardArrow.gen.cpp
-    [9/28] ScatterArrow.gen.cpp
-    [10/28] GameplayMechanicsCharacter.gen.cpp
-    [11/28] Arrow.gen.cpp
-    [12/28] Archer.gen.cpp
-    [13/28] SonicArrow.cpp
-    [14/28] StandardArrow.cpp
-    [15/28] FlyingArrow.gen.cpp
-    [16/28] GameplayMechanicsProjectile.cpp
-    [17/28] ScatterArrow.cpp
-    [18/28] GameplayMechanics.cpp
-    [19/28] GameplayMechanicsHUD.cpp
-    [20/28] Arrow.cpp
-    [21/28] FlyingArrow.cpp
-    [22/28] TestArrow.cpp
-    [23/28] Archer.cpp
-    [24/28] GameplayMechanicsGameMode.cpp
-    [25/28] TestArrow.gen.cpp
-    [26/28] GameplayMechanicsCharacter.cpp
-    [27/28] UE4Editor-GameplayMechanics-1274.lib
-       Creating library C:\Users\Michal\Desktop\IDIE\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\UE4Editor-GameplayMechanics-1274.lib and object C:\Users\Michal\Desktop\IDIE\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\UE4Editor-GameplayMechanics-1274.exp
-    [28/28] UE4Editor-GameplayMechanics-1274.dll
-       Creating library C:\Users\Michal\Desktop\IDIE\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\UE4Editor-GameplayMechanics-1274.suppressed.lib and object C:\Users\Michal\Desktop\IDIE\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\UE4Editor-GameplayMechanics-1274.suppressed.exp
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-2864.dll".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-2864.pdb".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-3023.dll".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-3023.pdb".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-4177.dll".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-4177.pdb".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-5808.dll".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-5808.pdb".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-6735.dll".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-6735.pdb".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-7449.dll".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-7449.pdb".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-8429.dll".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-8429.pdb".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-8672.dll".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-8672.pdb".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-9193.dll".
+  Deleting old hot reload file: "C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Binaries\Win64\UE4Editor-GameplayMechanics-9193.pdb".
+  Building 3 actions with 8 processes...
+    [1/3] FlyingArrow.cpp
+    [2/3] UE4Editor-GameplayMechanics.lib
+       Creating library C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\UE4Editor-GameplayMechanics.lib and object C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\UE4Editor-GameplayMechanics.exp
+    [3/3] UE4Editor-GameplayMechanics.dll
+       Creating library C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\UE4Editor-GameplayMechanics.suppressed.lib and object C:\Users\Michal\Documents\GitHub\Gameplay-Mechanics\GameplayMechanics\Intermediate\Build\Win64\UE4Editor\Development\GameplayMechanics\UE4Editor-GameplayMechanics.suppressed.exp
   Deploying GameplayMechanicsEditor Win64 Development...
-  Total build time: 48.65 seconds (Parallel executor: 32.99 seconds)
+  Total build time: 5.39 seconds (Parallel executor: 1.55 seconds)

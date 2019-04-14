@@ -2,20 +2,22 @@
 
 #pragma once
 
-#include "Kismet/KismetMathLibrary.h"
-#include "CoreMinimal.h"
-#include "StandardArrow.h"
+
+
+#include "BaseArrow.h"
 #include "FlyingArrow.h"
-#include "GameFramework/Actor.h"
-#include "Components/SphereComponent.h"
-#include "GameFramework/ProjectileMovementComponent.h"
+
 #include "ScatterArrow.generated.h"
 
 UCLASS()
-class GAMEPLAYMECHANICS_API AScatterArrow : public AActor
+class GAMEPLAYMECHANICS_API AScatterArrow : public ABaseArrow
 {
 	GENERATED_BODY()
-	
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
 public:	
 	// Sets default values for this actor's properties
 	AScatterArrow();
@@ -23,18 +25,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void updateArrowVelocityRotation();
+	
 
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-
-	USphereComponent* collisionComponent;
-	UProjectileMovementComponent* projectileMovement;
-	UStaticMeshComponent* arrowMesh;
 };

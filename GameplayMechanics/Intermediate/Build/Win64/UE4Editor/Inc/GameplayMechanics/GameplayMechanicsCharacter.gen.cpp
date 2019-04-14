@@ -17,15 +17,9 @@ void EmptyLinkFunctionForGeneratedCodeGameplayMechanicsCharacter() {}
 	GAMEPLAYMECHANICS_API UClass* Z_Construct_UClass_AGameplayMechanicsCharacter();
 	ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 	UPackage* Z_Construct_UPackage__Script_GameplayMechanics();
-	ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
-	ENGINE_API UClass* Z_Construct_UClass_USoundBase_NoRegister();
-	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
-	GAMEPLAYMECHANICS_API UClass* Z_Construct_UClass_AGameplayMechanicsProjectile_NoRegister();
 	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
-	HEADMOUNTEDDISPLAY_API UClass* Z_Construct_UClass_UMotionControllerComponent_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
-	ENGINE_API UClass* Z_Construct_UClass_USceneComponent_NoRegister();
-	ENGINE_API UClass* Z_Construct_UClass_USkeletalMeshComponent_NoRegister();
 // End Cross Module References
 	void AGameplayMechanicsCharacter::StaticRegisterNativesAGameplayMechanicsCharacter()
 	{
@@ -41,23 +35,6 @@ void EmptyLinkFunctionForGeneratedCodeGameplayMechanicsCharacter() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_bUsingMotionControllers_MetaData[];
-#endif
-		static void NewProp_bUsingMotionControllers_SetBit(void* Obj);
-		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_bUsingMotionControllers;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_FireAnimation_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_FireAnimation;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_FireSound_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_FireSound;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ProjectileClass_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FClassPropertyParams NewProp_ProjectileClass;
-#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_GunOffset_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FStructPropertyParams NewProp_GunOffset;
@@ -70,37 +47,29 @@ void EmptyLinkFunctionForGeneratedCodeGameplayMechanicsCharacter() {}
 #endif
 		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_BaseTurnRate;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_L_MotionController_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_scatterTimer_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_L_MotionController;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_scatterTimer;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_R_MotionController_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_scatterArrowCooldown_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_R_MotionController;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_scatterArrowCooldown;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_currentArrowsAmmo_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_currentArrowsAmmo;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_maxArrowsAmmo_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_maxArrowsAmmo;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_bowMesh_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_bowMesh;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_FirstPersonCameraComponent_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_FirstPersonCameraComponent;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_VR_MuzzleLocation_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_VR_MuzzleLocation;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_VR_Gun_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_VR_Gun;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_FP_MuzzleLocation_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_FP_MuzzleLocation;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_FP_Gun_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_FP_Gun;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Mesh1P_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Mesh1P;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -116,42 +85,6 @@ void EmptyLinkFunctionForGeneratedCodeGameplayMechanicsCharacter() {}
 		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
 	};
 #endif
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_bUsingMotionControllers_MetaData[] = {
-		{ "Category", "Gameplay" },
-		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
-		{ "ToolTip", "Whether to use motion controller location for aiming." },
-	};
-#endif
-	void Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_bUsingMotionControllers_SetBit(void* Obj)
-	{
-		((AGameplayMechanicsCharacter*)Obj)->bUsingMotionControllers = 1;
-	}
-	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_bUsingMotionControllers = { UE4CodeGen_Private::EPropertyClass::Bool, "bUsingMotionControllers", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000005, 1, nullptr, sizeof(uint8), UE4CodeGen_Private::ENativeBool::NotNative, sizeof(AGameplayMechanicsCharacter), &Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_bUsingMotionControllers_SetBit, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_bUsingMotionControllers_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_bUsingMotionControllers_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FireAnimation_MetaData[] = {
-		{ "Category", "Gameplay" },
-		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
-		{ "ToolTip", "AnimMontage to play each time we fire" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FireAnimation = { UE4CodeGen_Private::EPropertyClass::Object, "FireAnimation", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000005, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, FireAnimation), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FireAnimation_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FireAnimation_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FireSound_MetaData[] = {
-		{ "Category", "Gameplay" },
-		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
-		{ "ToolTip", "Sound to play each time we fire" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FireSound = { UE4CodeGen_Private::EPropertyClass::Object, "FireSound", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000005, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, FireSound), Z_Construct_UClass_USoundBase_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FireSound_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FireSound_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_ProjectileClass_MetaData[] = {
-		{ "Category", "Projectile" },
-		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
-		{ "ToolTip", "Projectile class to spawn" },
-	};
-#endif
-	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_ProjectileClass = { UE4CodeGen_Private::EPropertyClass::Class, "ProjectileClass", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0014000000010001, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, ProjectileClass), Z_Construct_UClass_AGameplayMechanicsProjectile_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_ProjectileClass_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_ProjectileClass_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_GunOffset_MetaData[] = {
 		{ "Category", "Gameplay" },
@@ -177,25 +110,42 @@ void EmptyLinkFunctionForGeneratedCodeGameplayMechanicsCharacter() {}
 #endif
 	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_BaseTurnRate = { UE4CodeGen_Private::EPropertyClass::Float, "BaseTurnRate", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000020015, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, BaseTurnRate), METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_BaseTurnRate_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_BaseTurnRate_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_L_MotionController_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
-		{ "Category", "GameplayMechanicsCharacter" },
-		{ "EditInline", "true" },
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_scatterTimer_MetaData[] = {
+		{ "Category", "StandardArrow" },
 		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
-		{ "ToolTip", "Motion controller (left hand)" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_L_MotionController = { UE4CodeGen_Private::EPropertyClass::Object, "L_MotionController", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x00400000000a001d, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, L_MotionController), Z_Construct_UClass_UMotionControllerComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_L_MotionController_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_L_MotionController_MetaData)) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_scatterTimer = { UE4CodeGen_Private::EPropertyClass::Float, "scatterTimer", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000020015, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, scatterTimer), METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_scatterTimer_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_scatterTimer_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_R_MotionController_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
-		{ "Category", "GameplayMechanicsCharacter" },
-		{ "EditInline", "true" },
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_scatterArrowCooldown_MetaData[] = {
+		{ "Category", "StandardArrow" },
 		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
-		{ "ToolTip", "Motion controller (right hand)" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_R_MotionController = { UE4CodeGen_Private::EPropertyClass::Object, "R_MotionController", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x00400000000a001d, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, R_MotionController), Z_Construct_UClass_UMotionControllerComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_R_MotionController_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_R_MotionController_MetaData)) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_scatterArrowCooldown = { UE4CodeGen_Private::EPropertyClass::Float, "scatterArrowCooldown", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000005, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, scatterArrowCooldown), METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_scatterArrowCooldown_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_scatterArrowCooldown_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_currentArrowsAmmo_MetaData[] = {
+		{ "Category", "StandardArrow" },
+		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_currentArrowsAmmo = { UE4CodeGen_Private::EPropertyClass::Int, "currentArrowsAmmo", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000020015, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, currentArrowsAmmo), METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_currentArrowsAmmo_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_currentArrowsAmmo_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_maxArrowsAmmo_MetaData[] = {
+		{ "Category", "StandardArrow" },
+		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_maxArrowsAmmo = { UE4CodeGen_Private::EPropertyClass::Int, "maxArrowsAmmo", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000005, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, maxArrowsAmmo), METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_maxArrowsAmmo_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_maxArrowsAmmo_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_bowMesh_MetaData[] = {
+		{ "Category", "Mesh" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
+		{ "ToolTip", "Bow model" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_bowMesh = { UE4CodeGen_Private::EPropertyClass::Object, "bowMesh", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x00400000000b0009, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, bowMesh), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_bowMesh_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_bowMesh_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FirstPersonCameraComponent_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
@@ -206,67 +156,16 @@ void EmptyLinkFunctionForGeneratedCodeGameplayMechanicsCharacter() {}
 	};
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FirstPersonCameraComponent = { UE4CodeGen_Private::EPropertyClass::Object, "FirstPersonCameraComponent", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x00400000000a001d, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, FirstPersonCameraComponent), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FirstPersonCameraComponent_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FirstPersonCameraComponent_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_VR_MuzzleLocation_MetaData[] = {
-		{ "Category", "Mesh" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
-		{ "ToolTip", "Location on VR gun mesh where projectiles should spawn." },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_VR_MuzzleLocation = { UE4CodeGen_Private::EPropertyClass::Object, "VR_MuzzleLocation", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x00400000000b0009, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, VR_MuzzleLocation), Z_Construct_UClass_USceneComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_VR_MuzzleLocation_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_VR_MuzzleLocation_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_VR_Gun_MetaData[] = {
-		{ "Category", "Mesh" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
-		{ "ToolTip", "Gun mesh: VR view (attached to the VR controller directly, no arm, just the actual gun)" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_VR_Gun = { UE4CodeGen_Private::EPropertyClass::Object, "VR_Gun", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x00400000000b0009, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, VR_Gun), Z_Construct_UClass_USkeletalMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_VR_Gun_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_VR_Gun_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FP_MuzzleLocation_MetaData[] = {
-		{ "Category", "Mesh" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
-		{ "ToolTip", "Location on gun mesh where projectiles should spawn." },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FP_MuzzleLocation = { UE4CodeGen_Private::EPropertyClass::Object, "FP_MuzzleLocation", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x00400000000b0009, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, FP_MuzzleLocation), Z_Construct_UClass_USceneComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FP_MuzzleLocation_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FP_MuzzleLocation_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FP_Gun_MetaData[] = {
-		{ "Category", "Mesh" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
-		{ "ToolTip", "Gun mesh: 1st person view (seen only by self)" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FP_Gun = { UE4CodeGen_Private::EPropertyClass::Object, "FP_Gun", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x00400000000b0009, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, FP_Gun), Z_Construct_UClass_USkeletalMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FP_Gun_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FP_Gun_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_Mesh1P_MetaData[] = {
-		{ "Category", "Mesh" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "GameplayMechanicsCharacter.h" },
-		{ "ToolTip", "Pawn mesh: 1st person view (arms; seen only by self)" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_Mesh1P = { UE4CodeGen_Private::EPropertyClass::Object, "Mesh1P", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x00400000000b0009, 1, nullptr, STRUCT_OFFSET(AGameplayMechanicsCharacter, Mesh1P), Z_Construct_UClass_USkeletalMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_Mesh1P_MetaData, ARRAY_COUNT(Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_Mesh1P_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_bUsingMotionControllers,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FireAnimation,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FireSound,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_ProjectileClass,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_GunOffset,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_BaseLookUpRate,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_BaseTurnRate,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_L_MotionController,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_R_MotionController,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_scatterTimer,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_scatterArrowCooldown,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_currentArrowsAmmo,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_maxArrowsAmmo,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_bowMesh,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FirstPersonCameraComponent,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_VR_MuzzleLocation,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_VR_Gun,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FP_MuzzleLocation,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_FP_Gun,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::NewProp_Mesh1P,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_AGameplayMechanicsCharacter_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AGameplayMechanicsCharacter>::IsAbstract,
@@ -291,7 +190,7 @@ void EmptyLinkFunctionForGeneratedCodeGameplayMechanicsCharacter() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AGameplayMechanicsCharacter, 1149344951);
+	IMPLEMENT_CLASS(AGameplayMechanicsCharacter, 3931297771);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_AGameplayMechanicsCharacter(Z_Construct_UClass_AGameplayMechanicsCharacter, &AGameplayMechanicsCharacter::StaticClass, TEXT("/Script/GameplayMechanics"), TEXT("AGameplayMechanicsCharacter"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(AGameplayMechanicsCharacter);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

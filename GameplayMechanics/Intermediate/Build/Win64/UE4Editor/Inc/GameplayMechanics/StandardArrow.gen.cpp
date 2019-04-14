@@ -15,7 +15,7 @@ void EmptyLinkFunctionForGeneratedCodeStandardArrow() {}
 // Cross Module References
 	GAMEPLAYMECHANICS_API UClass* Z_Construct_UClass_AStandardArrow_NoRegister();
 	GAMEPLAYMECHANICS_API UClass* Z_Construct_UClass_AStandardArrow();
-	ENGINE_API UClass* Z_Construct_UClass_AActor();
+	GAMEPLAYMECHANICS_API UClass* Z_Construct_UClass_ABaseArrow();
 	UPackage* Z_Construct_UPackage__Script_GameplayMechanics();
 	GAMEPLAYMECHANICS_API UFunction* Z_Construct_UFunction_AStandardArrow_OnHit();
 	ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FHitResult();
@@ -118,7 +118,7 @@ void EmptyLinkFunctionForGeneratedCodeStandardArrow() {}
 		static const UE4CodeGen_Private::FClassParams ClassParams;
 	};
 	UObject* (*const Z_Construct_UClass_AStandardArrow_Statics::DependentSingletons[])() = {
-		(UObject* (*)())Z_Construct_UClass_AActor,
+		(UObject* (*)())Z_Construct_UClass_ABaseArrow,
 		(UObject* (*)())Z_Construct_UPackage__Script_GameplayMechanics,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_AStandardArrow_Statics::FuncInfo[] = {
@@ -153,7 +153,7 @@ void EmptyLinkFunctionForGeneratedCodeStandardArrow() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AStandardArrow, 3377628094);
+	IMPLEMENT_CLASS(AStandardArrow, 3396719616);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_AStandardArrow(Z_Construct_UClass_AStandardArrow, &AStandardArrow::StaticClass, TEXT("/Script/GameplayMechanics"), TEXT("AStandardArrow"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(AStandardArrow);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

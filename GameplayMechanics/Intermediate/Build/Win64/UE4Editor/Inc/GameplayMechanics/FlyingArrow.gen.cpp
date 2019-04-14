@@ -15,7 +15,7 @@ void EmptyLinkFunctionForGeneratedCodeFlyingArrow() {}
 // Cross Module References
 	GAMEPLAYMECHANICS_API UClass* Z_Construct_UClass_AFlyingArrow_NoRegister();
 	GAMEPLAYMECHANICS_API UClass* Z_Construct_UClass_AFlyingArrow();
-	ENGINE_API UClass* Z_Construct_UClass_AActor();
+	GAMEPLAYMECHANICS_API UClass* Z_Construct_UClass_ABaseArrow();
 	UPackage* Z_Construct_UPackage__Script_GameplayMechanics();
 	GAMEPLAYMECHANICS_API UFunction* Z_Construct_UFunction_AFlyingArrow_OnHit();
 	ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FHitResult();
@@ -118,7 +118,7 @@ void EmptyLinkFunctionForGeneratedCodeFlyingArrow() {}
 		static const UE4CodeGen_Private::FClassParams ClassParams;
 	};
 	UObject* (*const Z_Construct_UClass_AFlyingArrow_Statics::DependentSingletons[])() = {
-		(UObject* (*)())Z_Construct_UClass_AActor,
+		(UObject* (*)())Z_Construct_UClass_ABaseArrow,
 		(UObject* (*)())Z_Construct_UPackage__Script_GameplayMechanics,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_AFlyingArrow_Statics::FuncInfo[] = {
@@ -153,7 +153,7 @@ void EmptyLinkFunctionForGeneratedCodeFlyingArrow() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AFlyingArrow, 1031179519);
+	IMPLEMENT_CLASS(AFlyingArrow, 2559444741);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_AFlyingArrow(Z_Construct_UClass_AFlyingArrow, &AFlyingArrow::StaticClass, TEXT("/Script/GameplayMechanics"), TEXT("AFlyingArrow"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(AFlyingArrow);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

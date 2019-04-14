@@ -17,7 +17,7 @@ struct FHitResult;
 #endif
 #define GAMEPLAYMECHANICS_ScatterArrow_generated_h
 
-#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_RPC_WRAPPERS \
+#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execOnHit) \
 	{ \
@@ -33,7 +33,7 @@ struct FHitResult;
 	}
 
 
-#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
+#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execOnHit) \
 	{ \
@@ -49,25 +49,25 @@ struct FHitResult;
 	}
 
 
-#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_INCLASS_NO_PURE_DECLS \
+#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAScatterArrow(); \
 	friend struct Z_Construct_UClass_AScatterArrow_Statics; \
 public: \
-	DECLARE_CLASS(AScatterArrow, AActor, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/GameplayMechanics"), NO_API) \
+	DECLARE_CLASS(AScatterArrow, ABaseArrow, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/GameplayMechanics"), NO_API) \
 	DECLARE_SERIALIZER(AScatterArrow)
 
 
-#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_INCLASS \
+#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_INCLASS \
 private: \
 	static void StaticRegisterNativesAScatterArrow(); \
 	friend struct Z_Construct_UClass_AScatterArrow_Statics; \
 public: \
-	DECLARE_CLASS(AScatterArrow, AActor, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/GameplayMechanics"), NO_API) \
+	DECLARE_CLASS(AScatterArrow, ABaseArrow, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/GameplayMechanics"), NO_API) \
 	DECLARE_SERIALIZER(AScatterArrow)
 
 
-#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_STANDARD_CONSTRUCTORS \
+#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API AScatterArrow(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AScatterArrow) \
@@ -80,7 +80,7 @@ private: \
 public:
 
 
-#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_ENHANCED_CONSTRUCTORS \
+#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API AScatterArrow(AScatterArrow&&); \
@@ -91,26 +91,26 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AScatterArrow); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AScatterArrow)
 
 
-#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_PRIVATE_PROPERTY_OFFSET
-#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_14_PROLOG
-#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_GENERATED_BODY_LEGACY \
+#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_PRIVATE_PROPERTY_OFFSET
+#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_12_PROLOG
+#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_PRIVATE_PROPERTY_OFFSET \
-	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_RPC_WRAPPERS \
-	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_INCLASS \
-	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_STANDARD_CONSTRUCTORS \
+	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_PRIVATE_PROPERTY_OFFSET \
+	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_RPC_WRAPPERS \
+	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_INCLASS \
+	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_GENERATED_BODY \
+#define GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_PRIVATE_PROPERTY_OFFSET \
-	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
-	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_INCLASS_NO_PURE_DECLS \
-	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_17_ENHANCED_CONSTRUCTORS \
+	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_PRIVATE_PROPERTY_OFFSET \
+	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_INCLASS_NO_PURE_DECLS \
+	GameplayMechanics_Source_GameplayMechanics_ScatterArrow_h_15_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

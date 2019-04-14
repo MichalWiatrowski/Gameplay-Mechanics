@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FGenericCrashContext>
+	<RuntimeProperties>
+		<CrashVersion>3</CrashVersion>
+		<CrashGUID>UE4CC-Windows-29A804454DDA824F34A4D6B35F41ECE7_0000</CrashGUID>
+		<ProcessId>8340</ProcessId>
+		<IsInternalBuild>false</IsInternalBuild>
+		<IsPerforceBuild>false</IsPerforceBuild>
+		<IsSourceDistribution>false</IsSourceDistribution>
+		<IsEnsure>false</IsEnsure>
+		<IsAssert>true</IsAssert>
+		<CrashType>Assert</CrashType>
+		<SecondsSinceStart>0</SecondsSinceStart>
+		<GameName>UE4-GameplayMechanics</GameName>
+		<ExecutableName>UE4Editor</ExecutableName>
+		<BuildConfiguration>Development</BuildConfiguration>
+		<GameSessionID />
+		<Symbols>**UE4*Release-4.21-CL-4753647-Win64-Development</Symbols>
+		<PlatformName>Windows</PlatformName>
+		<PlatformNameIni>Windows</PlatformNameIni>
+		<EngineMode>Editor</EngineMode>
+		<EngineModeEx>Unset</EngineModeEx>
+		<DeploymentName />
+		<EngineVersion>4.21.2-4753647+++UE4+Release-4.21</EngineVersion>
+		<CommandLine>C:/Users/Michal/Documents/GitHub/Gameplay-Mechanics/GameplayMechanics/GameplayMechanics.uproject -EpicPortal -epicusername=PolishNoble -epicuserid=a099b9665b064454aaa52d270fdb3151 -epiclocale=en-US</CommandLine>
+		<LanguageLCID>1033</LanguageLCID>
+		<AppDefaultLocale>en-GB</AppDefaultLocale>
+		<BuildVersion>++UE4+Release-4.21-CL-4753647</BuildVersion>
+		<IsUE4Release>true</IsUE4Release>
+		<UserName>Michal</UserName>
+		<BaseDir>C:/Program Files/Epic Games/UE_4.21/Engine/Binaries/Win64/</BaseDir>
+		<RootDir>C:/Program Files/Epic Games/UE_4.21/</RootDir>
+		<MachineId>C6B0D3844F1B847F06F87AAFB6760F09</MachineId>
+		<LoginId>c6b0d3844f1b847f06f87aafb6760f09</LoginId>
+		<EpicAccountId>a099b9665b064454aaa52d270fdb3151</EpicAccountId>
+		<CallStack />
+		<PCallStack>UE4Editor-CoreUObject 0x000000000ea20000 + 3d4236 UE4Editor-CoreUObject 0x000000000ea20000 + 300a2d UE4Editor-GameplayMechanics-2864 0x00000000eea80000 + 4125 UE4Editor-CoreUObject 0x000000000ea20000 + 148973 UE4Editor-CoreUObject 0x000000000ea20000 + 4120a8 UE4Editor-CoreUObject 0x000000000ea20000 + 3f819f UE4Editor-CoreUObject 0x000000000ea20000 + 14e977 UE4Editor-Core 0x000000001c240000 + 11ca7e UE4Editor-Core 0x000000001c240000 + 2d9e66 UE4Editor-Projects 0x0000000035510000 + 1cfec UE4Editor-Projects 0x0000000035510000 + 1d2d4 UE4Editor 0x000000008f8b0000 + 183a1 UE4Editor 0x000000008f8b0000 + 1dc6b UE4Editor 0x000000008f8b0000 + 15783 UE4Editor 0x000000008f8b0000 + 159ea UE4Editor 0x000000008f8b0000 + 248da UE4Editor 0x000000008f8b0000 + 2659a KERNEL32 0x000000005e570000 + 14034 ntdll 0x000000005ec90000 + 73691</PCallStack>
+		<SourceContext />
+		<UserDescription />
+		<UserActivityHint />
+		<ErrorMessage>Fatal error: [File:D:\Build\++UE4\Sync\Engine\Source\Runtime\CoreUObject\Private\UObject\UObjectGlobals.cpp] [Line: 3755] Default subobject SphereComponent SphereComponent already exists for FlyingArrow /Script/GameplayMechanics.Default__FlyingArrow.</ErrorMessage>
+		<CrashDumpMode>0</CrashDumpMode>
+		<CrashReporterMessage />
+		<Misc.NumberOfCores>4</Misc.NumberOfCores>
+		<Misc.NumberOfCoresIncludingHyperthreads>8</Misc.NumberOfCoresIncludingHyperthreads>
+		<Misc.Is64bitOperatingSystem>1</Misc.Is64bitOperatingSystem>
+		<Misc.CPUVendor>GenuineIntel</Misc.CPUVendor>
+		<Misc.CPUBrand>Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz</Misc.CPUBrand>
+		<Misc.PrimaryGPUBrand>NVIDIA GeForce GTX 1080</Misc.PrimaryGPUBrand>
+		<Misc.OSVersionMajor>Windows 10</Misc.OSVersionMajor>
+		<Misc.OSVersionMinor />
+		<GameStateName />
+		<MemoryStats.TotalPhysical>17117184000</MemoryStats.TotalPhysical>
+		<MemoryStats.TotalVirtual>140737488224256</MemoryStats.TotalVirtual>
+		<MemoryStats.PageSize>4096</MemoryStats.PageSize>
+		<MemoryStats.TotalPhysicalGB>16</MemoryStats.TotalPhysicalGB>
+		<MemoryStats.AvailablePhysical>7777210368</MemoryStats.AvailablePhysical>
+		<MemoryStats.AvailableVirtual>140731713515520</MemoryStats.AvailableVirtual>
+		<MemoryStats.UsedPhysical>603152384</MemoryStats.UsedPhysical>
+		<MemoryStats.PeakUsedPhysical>603152384</MemoryStats.PeakUsedPhysical>
+		<MemoryStats.UsedVirtual>628162560</MemoryStats.UsedVirtual>
+		<MemoryStats.PeakUsedVirtual>628162560</MemoryStats.PeakUsedVirtual>
+		<MemoryStats.bIsOOM>0</MemoryStats.bIsOOM>
+		<MemoryStats.OOMAllocationSize>0</MemoryStats.OOMAllocationSize>
+		<MemoryStats.OOMAllocationAlignment>0</MemoryStats.OOMAllocationAlignment>
+		<TimeOfCrash>636906819790940000</TimeOfCrash>
+		<bAllowToBeContacted>1</bAllowToBeContacted>
+		<PlatformFullName>Win64 [Windows 10  64b]</PlatformFullName>
+		<CrashReportClientVersion>1.0</CrashReportClientVersion>
+	</RuntimeProperties>
+	<PlatformProperties>
+		<PlatformIsRunningWindows>1</PlatformIsRunningWindows>
+		<PlatformCallbackResult>0</PlatformCallbackResult>
+	</PlatformProperties>
+</FGenericCrashContext>

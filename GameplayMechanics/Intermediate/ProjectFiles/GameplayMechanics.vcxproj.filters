@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\GameplayMechanics.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{E93CDF9E-86F4-4B87-B1F6-24B53AE6C92C}</UniqueIdentifier>
+      <UniqueIdentifier>{4FC32F0F-9C77-4FE6-B947-4CC21650730D}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\GameplayMechanics.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{4882EBC4-92C5-439B-8852-870325BDB134}</UniqueIdentifier>
+      <UniqueIdentifier>{69C1E016-1752-4ED7-B458-8B7FB3102C22}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,7 +30,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\GameplayMechanics">
-      <UniqueIdentifier>{37322E94-6401-423E-8341-09D2FED62FBF}</UniqueIdentifier>
+      <UniqueIdentifier>{2B053F12-A7DA-458A-BA30-99372681FF60}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\GameplayMechanics\Archer.cpp">
       <Filter>Source\GameplayMechanics</Filter>
@@ -107,5 +107,21 @@
     <ClInclude Include="..\..\Source\GameplayMechanics\TestArrow.h">
       <Filter>Source\GameplayMechanics</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\GameplayMechanics\BaseArrow.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GameplayMechanics\BaseBow.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\GameplayMechanics\BaseArrow.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GameplayMechanics\BaseBow.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,18 +2,12 @@
 
 #pragma once
 
-
-#include "Kismet/KismetMathLibrary.h"
-#include "CoreMinimal.h"
-
-#include "GameFramework/Actor.h"
-#include "Components/SphereComponent.h"
-#include "GameFramework/ProjectileMovementComponent.h"
+#include "BaseArrow.h"
 #include "StandardArrow.generated.h"
 
 
 UCLASS()
-class GAMEPLAYMECHANICS_API AStandardArrow : public AActor
+class GAMEPLAYMECHANICS_API AStandardArrow : public ABaseArrow
 {
 	GENERATED_BODY()
 	
@@ -25,16 +19,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
-
-	void updateArrowVelocityRotation();
+	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	USphereComponent* collisionComponent;
-	UProjectileMovementComponent* projectileMovement;
-	UStaticMeshComponent* arrowMesh;
 };
