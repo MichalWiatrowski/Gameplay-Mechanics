@@ -115,12 +115,18 @@
     <ClInclude Include="..\..\Source\GameplayMechanics\BaseBow.h">
       <Filter>Source\GameplayMechanics</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\GameplayMechanics\Bow.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\GameplayMechanics\BaseArrow.cpp">
       <Filter>Source\GameplayMechanics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\GameplayMechanics\BaseBow.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GameplayMechanics\Bow.cpp">
       <Filter>Source\GameplayMechanics</Filter>
     </ClCompile>
   </ItemGroup>

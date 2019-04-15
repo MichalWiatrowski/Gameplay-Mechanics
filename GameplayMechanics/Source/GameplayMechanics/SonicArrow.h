@@ -4,7 +4,7 @@
 
 #include "BaseArrow.h"
 #include "GameFramework/Actor.h"
-
+#include "DrawDebugHelpers.h"
 #include "SonicArrow.generated.h"
 
 UCLASS()
@@ -34,5 +34,7 @@ public:
 		void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	USphereComponent* sonicCollisionComponent;
+
+	bool ifHit = false;
 
 };

@@ -59,7 +59,8 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AGameplayMechanicsCharacter); \
 
 #define GameplayMechanics_Source_GameplayMechanics_GameplayMechanicsCharacter_h_20_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__FirstPersonCameraComponent() { return STRUCT_OFFSET(AGameplayMechanicsCharacter, FirstPersonCameraComponent); } \
-	FORCEINLINE static uint32 __PPO__bowMesh() { return STRUCT_OFFSET(AGameplayMechanicsCharacter, bowMesh); }
+	FORCEINLINE static uint32 __PPO__bowMesh() { return STRUCT_OFFSET(AGameplayMechanicsCharacter, bowMesh); } \
+	FORCEINLINE static uint32 __PPO__arrowMesh() { return STRUCT_OFFSET(AGameplayMechanicsCharacter, arrowMesh); }
 
 
 #define GameplayMechanics_Source_GameplayMechanics_GameplayMechanicsCharacter_h_17_PROLOG

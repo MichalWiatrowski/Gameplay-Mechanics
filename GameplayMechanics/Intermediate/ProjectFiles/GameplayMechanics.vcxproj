@@ -513,9 +513,11 @@
     <ClInclude Include="..\..\Source\GameplayMechanics\Arrow.h" />
     <ClCompile Include="..\..\Source\GameplayMechanics\BaseArrow.cpp" />
     <ClCompile Include="..\..\Source\GameplayMechanics\BaseBow.cpp" />
+    <ClCompile Include="..\..\Source\GameplayMechanics\Bow.cpp" />
     <ClCompile Include="..\..\Source\GameplayMechanics\FlyingArrow.cpp" />
     <ClInclude Include="..\..\Source\GameplayMechanics\BaseArrow.h" />
     <ClInclude Include="..\..\Source\GameplayMechanics\BaseBow.h" />
+    <ClInclude Include="..\..\Source\GameplayMechanics\Bow.h" />
     <ClInclude Include="..\..\Source\GameplayMechanics\FlyingArrow.h" />
     <None Include="..\..\Source\GameplayMechanics\GameplayMechanics.Build.cs" />
     <ClCompile Include="..\..\Source\GameplayMechanics\GameplayMechanics.cpp" />

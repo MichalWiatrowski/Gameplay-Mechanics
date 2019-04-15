@@ -10,6 +10,7 @@ AStandardArrow::AStandardArrow()
 
 	collisionComponent->OnComponentHit.AddDynamic(this, &AStandardArrow::OnHit);		// set up a notification for when this component hits something blocking
 
+	
 	// Die after 10 seconds by default
 	InitialLifeSpan = 10.0f;
 }
@@ -37,7 +38,7 @@ void AStandardArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPr
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-
+		
 		Destroy();
 		
 	}

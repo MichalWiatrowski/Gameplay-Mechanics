@@ -20,6 +20,8 @@ ASonicArrow::ASonicArrow()
 
 	sonicCollisionComponent->SetupAttachment(RootComponent);
 
+	arrowMesh->SetRenderCustomDepth(true);
+	arrowMesh->CustomDepthStencilValue = 255;
 	// Die after 10 seconds by default
 	InitialLifeSpan = 10.0f;
 }
@@ -37,6 +39,7 @@ void ASonicArrow::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	updateArrowVelocityRotation();
 
+
 	
 }
 
@@ -44,7 +47,12 @@ void ASonicArrow::Tick(float DeltaTime)
 
 void ASonicArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+	
 	sonicCollisionComponent->SetSphereRadius(1000.0f);
+	
+	//projectileMovement->StopMovementImmediately();
+	RootComponent->AttachTo(OtherComp, NAME_None, EAttachLocation::KeepWorldPosition, false);
+	
 }
 
 
@@ -57,6 +65,8 @@ void ASonicArrow::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Ot
 		OtherComp->SetRenderCustomDepth(true);
 		OtherComp->SetVisibility(false);
 		OtherComp->SetVisibility(true);
+		OtherComp->CustomDepthStencilValue = 1;
+	
 	}
 }
 void ASonicArrow::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
@@ -66,5 +76,6 @@ void ASonicArrow::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* Othe
 		OtherComp->SetRenderCustomDepth(false);
 		OtherComp->SetVisibility(false);
 		OtherComp->SetVisibility(true);
+		OtherComp->CustomDepthStencilValue = 0;
 	}
 }

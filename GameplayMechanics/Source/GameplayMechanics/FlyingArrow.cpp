@@ -39,14 +39,14 @@ void AFlyingArrow::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	DrawDebugLine(GetWorld(), GetActorLocation(), lastPosition, FColor(35, 222, 255), true, 1, 0, 4);
+	DrawDebugLine(GetWorld(), GetActorLocation(), lastPosition, FColor(35, 222, 255), true, 0.2, 0, 4);
 
 	//execute the rotation function
 	updateArrowVelocityRotation();
 
 
 	lastPosition = GetActorLocation();
-	projectileMovement->SetVelocityInLocalSpace(FVector(1000, 0, 0));
+	projectileMovement->SetVelocityInLocalSpace(FVector(6000, 0, 0));
 
 }
 
@@ -70,7 +70,7 @@ void AFlyingArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrim
 	else
 		numberOfBounces++;
 
-	float maxSpeed = 3000;
+	float maxSpeed = 6000;
 
 
 	UWorld* const World = GetWorld(); //get the world
@@ -87,6 +87,6 @@ void AFlyingArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrim
 
 
 
-	maxSpeed = 3000;
+	maxSpeed = 6000;
 }
 

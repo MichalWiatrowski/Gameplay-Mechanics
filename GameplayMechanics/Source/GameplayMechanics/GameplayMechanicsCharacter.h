@@ -8,7 +8,7 @@
 #include "StandardArrow.h"
 #include "GameFramework/Character.h"
 #include "Kismet/KismetSystemLibrary.h"
-#include "Kismet/KismetStringLibrary.h"
+#include "Math/UnrealMathVectorCommon.h"
 #include "GameplayMechanicsCharacter.generated.h"
 
 
@@ -26,16 +26,40 @@ class AGameplayMechanicsCharacter : public ACharacter
 	//Bow model
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 		class UStaticMeshComponent* bowMesh;
+
+	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+		class UStaticMeshComponent* arrowMesh;
 public:
 	AGameplayMechanicsCharacter();
 
 	
 
 
+	FVector arrowMeshMaxChargeLocation = (FVector(35.0f, 3.0f, -20.5f));
+	FVector arrowMeshCurrentLocation = (FVector(75.0f, 3.0f, -20.5f));
+	FVector arrowMeshMinChargeLocation = (FVector(75.0f, 3.0f, -20.5f));
+	float currentChargedVelocity = 0.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Custom Settings | ArrowTypes | Standard Arrow")
+	UMaterial* standardArrowMaterial;
+	UPROPERTY(EditAnywhere, Category = "Custom Settings | ArrowTypes | Scatter Arrow")
+	UMaterial* scatterArrowMaterial;
+	UPROPERTY(EditAnywhere, Category = "Custom Settings | ArrowTypes | Sonic Arrow")
+	UMaterial* sonicArrowMaterial;
 
 
-	bool isCharging = false;
-	float maxSpeed = 1500.0f;
+
+
+
+
+
+
+
+	
+
+	//float minVelocity = 1500.0f;
+	//float maxVelocity = 7000.0f;
+
 
 	float climbTime = 0.0f;
 	bool isClimbing = false;
@@ -44,21 +68,51 @@ public:
 
 
 	bool canSecondJump = false;
-	int arrowType = 1;
 
+	enum arrows { Standard, Scatter, Sonic } arrowType;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = StandardArrow)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | ArrowTypes | Standard Arrow")
 		int32 maxArrowsAmmo = 10;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = StandardArrow)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Custom Settings | ArrowTypes | Standard Arrow")
 		int32 currentArrowsAmmo = 10;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = StandardArrow)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | ArrowTypes | Scatter Arrow")
 	float scatterArrowCooldown = 5.0f;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = StandardArrow)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Custom Settings | ArrowTypes | Scatter Arrow")
 	float scatterTimer = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | ArrowTypes | Sonic Arrow")
+		float sonicArrowCooldown = 5.0f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Custom Settings | ArrowTypes | Sonic Arrow")
+		float sonicTimer = 0.0f;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | Archer Settings")
+	float minVelocity = 250.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | Archer Settings")
+	float maxVelocity = 12000.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Custom Settings | Archer Settings")
+	float chargeSpeed = 1.0f;
+
+
+
+
+
 	bool scatterArrowReady = true;
+	bool sonicArrowReady = true;
+
+
+
+
+
+
+
+
 
 protected:
 	virtual void BeginPlay(); //On begin play
@@ -74,8 +128,8 @@ protected:
 	void bowPullBack(float DeltaTime);
 
 
-
-
+	void handleInput(float DeltaTime);
+	void handleCooldowns(float DeltaTime);
 
 
 
@@ -124,6 +178,6 @@ public:
 
 	/** Gun muzzle's offset from the characters location */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-		FVector GunOffset;
+		FVector ArrowOffset;
 };
 

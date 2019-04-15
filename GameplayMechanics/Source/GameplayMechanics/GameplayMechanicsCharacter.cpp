@@ -33,8 +33,8 @@ AGameplayMechanicsCharacter::AGameplayMechanicsCharacter()
 	FirstPersonCameraComponent->RelativeLocation = FVector(-39.56f, 1.75f, 64.f); // Position the camera
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
-	// Default offset from the character location for projectiles to spawn
-	GunOffset = FVector(100.0f, 0.0f, 10.0f);
+	// Default offset from the character location for arrows to spawn
+	ArrowOffset = FVector(80, 1.5f, 40);
 
 
 
@@ -50,8 +50,28 @@ AGameplayMechanicsCharacter::AGameplayMechanicsCharacter()
 		bowMesh->bCastDynamicShadow = false;
 		bowMesh->CastShadow = false;
 		bowMesh->SetupAttachment(FirstPersonCameraComponent);
-		bowMesh->SetRelativeLocation(FVector(60.0f, -20.0f, -60.0f));
+		bowMesh->SetRelativeLocation(FVector(50.0f, -20.0f, -60.0f));
+		bowMesh->SetRenderCustomDepth(true);
+		bowMesh->CustomDepthStencilValue = 255;
 	}
+
+	arrowMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ArrowVisualRepresentation"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> arrowMeshAsset(TEXT("/Game/arrowMesh.arrowMesh"));
+	if (arrowMeshAsset.Succeeded())
+	{
+		arrowMesh->SetStaticMesh(arrowMeshAsset.Object);
+		//offset the mesh so the sphere collider component is just behind the the tip of the mesh to give the effect of the tip going into an object
+		arrowMesh->SetupAttachment(FirstPersonCameraComponent);
+		arrowMesh->SetRelativeLocation(FVector(75.0f, 3.2f, -20.5f));
+		arrowMesh->SetRelativeRotation(FRotator(-90, 90, -180));
+		arrowMesh->SetWorldScale3D(FVector(1.0f));
+		arrowMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+		arrowMesh->SetRenderCustomDepth(true);
+		arrowMesh->CustomDepthStencilValue = 255;
+	}
+	
+
+
 }
 
 void AGameplayMechanicsCharacter::BeginPlay()
@@ -59,6 +79,12 @@ void AGameplayMechanicsCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 	scatterTimer = scatterArrowCooldown;
+	sonicTimer = sonicArrowCooldown;
+	currentArrowsAmmo = maxArrowsAmmo;
+	arrowMesh->SetMaterial(0, standardArrowMaterial);
+
+	
+	
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -91,49 +117,162 @@ void AGameplayMechanicsCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 
-	if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::LeftMouseButton))
+	handleInput(DeltaTime);
+	handleCooldowns(DeltaTime);
+
+	wallClimb(DeltaTime);
+}
+
+//Handle the input for the character
+void AGameplayMechanicsCharacter::handleInput(float DeltaTime)
+{
+
+	if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::LeftMouseButton) && (currentArrowsAmmo > 0 || (arrowType != Standard)))
 	{
-		isCharging = true;
+		bowPullBack(DeltaTime);
 	}
 	else if (GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::LeftMouseButton))
 	{
-		isCharging = false;
 		shootArrow();
 	}
 
+	//Change the type of arrow currently in use
 	if (GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::One))
 	{
-		arrowType = 1;
+		arrowMesh->SetMaterial(0, standardArrowMaterial);
+		arrowType = Standard;
 	}
 	else if (GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::Two) && scatterArrowReady == true)
 	{
-		arrowType = 2;
+		arrowMesh->SetMaterial(0, scatterArrowMaterial);
+		arrowType = Scatter;
 	}
-	else if (GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::Three))
+	else if (GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::Three) && sonicArrowReady == true)
 	{
-		arrowType = 3;
+		arrowMesh->SetMaterial(0, sonicArrowMaterial);
+		arrowType = Sonic;
 	}
 
+
+	//Reload the standard arrows
+	if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::R) && currentArrowsAmmo < maxArrowsAmmo)
+	{
+		currentArrowsAmmo = maxArrowsAmmo;
+	}
+}
+
+
+void AGameplayMechanicsCharacter::handleCooldowns(float DeltaTime)
+{
+	//Handle cooldown for scatter arrow
 	if (scatterArrowReady == false)
 	{
 		scatterTimer += DeltaTime;
 		if (scatterTimer > scatterArrowCooldown)
 		{
-			
+
 			scatterArrowReady = true;
 		}
 	}
 
-	bowPullBack(DeltaTime);
+	//Handle cooldown for sonic arrow
+	if (sonicArrowReady == false)
+	{
+		sonicTimer += DeltaTime;
+		if (sonicTimer > sonicArrowCooldown)
+		{
 
-	wallClimb(DeltaTime);
+			sonicArrowReady = true;
+		}
+	}
+}
+
+void AGameplayMechanicsCharacter::bowPullBack(float DeltaTime)
+{
+	
+		if (currentChargedVelocity < maxVelocity)
+		{
+		
+			arrowMeshCurrentLocation = FMath::Lerp(arrowMeshCurrentLocation, arrowMeshMaxChargeLocation, DeltaTime * 2.5 * chargeSpeed);
+			arrowMesh->SetRelativeLocation(arrowMeshCurrentLocation);
+
+
+
+			currentChargedVelocity += maxVelocity * DeltaTime * chargeSpeed;
+
+			if (currentChargedVelocity > maxVelocity)
+				currentChargedVelocity = maxVelocity;
+
+	
+			if (GEngine)
+			{
+				GEngine->ClearOnScreenDebugMessages();
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Debug: chargedVelocity : %f"), currentChargedVelocity));
+			}
+				
+		}
+}
+void AGameplayMechanicsCharacter::shootArrow()
+{
+
+	UWorld* const World = GetWorld();
+
+	const FRotator SpawnRotation = GetControlRotation();
+
+	const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(ArrowOffset);
+	FActorSpawnParameters ActorSpawnParams;
+	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	if (arrowType == Standard)
+	{
+		if (currentArrowsAmmo > 0)
+		{
+			AStandardArrow* newArrow = GetWorld()->SpawnActor<AStandardArrow>(AStandardArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
+			newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(currentChargedVelocity, 0, 0));
+			currentChargedVelocity = minVelocity;
+
+			currentArrowsAmmo--;
+		}
+			
+
+	}
+
+	else if (arrowType == Scatter)
+	{
+		AScatterArrow* newArrow = GetWorld()->SpawnActor<AScatterArrow>(AScatterArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
+		newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(currentChargedVelocity, 0, 0));
+		currentChargedVelocity = minVelocity;
+
+
+		scatterArrowReady = false;
+		scatterTimer = 0.0f;
+
+		arrowType = Standard;
+		arrowMesh->SetMaterial(0, standardArrowMaterial);
+	}
+
+	else if (arrowType == Sonic)
+	{
+		ASonicArrow* newArrow = GetWorld()->SpawnActor<ASonicArrow>(ASonicArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
+		newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(currentChargedVelocity, 0, 0));
+		currentChargedVelocity = minVelocity;
+
+		sonicArrowReady = false;
+		sonicTimer = 0.0f;
+
+		arrowType = Standard;
+		arrowMesh->SetMaterial(0, standardArrowMaterial);
+	}
+
+	arrowMeshCurrentLocation = arrowMeshMinChargeLocation;
+	arrowMesh->SetRelativeLocation(arrowMeshCurrentLocation);
 }
 
 void AGameplayMechanicsCharacter::wallClimb(float DeltaTime)
 {
 
 	FCollisionQueryParams CollisionParams;
-	
+
 	if (canClimb == true)
 	{
 		FHitResult wallHitResult;
@@ -156,7 +295,7 @@ void AGameplayMechanicsCharacter::wallClimb(float DeltaTime)
 		}
 
 
-		if ((GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::SpaceBar) && isClimbing == true ) || (climbTime >= 0.7 && isClimbing == true))
+		if ((GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::SpaceBar) && isClimbing == true) || (climbTime >= 0.7 && isClimbing == true))
 		{
 			canClimb = false;
 		}
@@ -176,64 +315,7 @@ void AGameplayMechanicsCharacter::wallClimb(float DeltaTime)
 	}
 
 }
-void AGameplayMechanicsCharacter::bowPullBack(float DeltaTime)
-{
-	if (isCharging == true)
-	{
-		if (maxSpeed < 7000)
-		{
-			maxSpeed += 7000 * DeltaTime;
-			if (maxSpeed > 7000)
-				maxSpeed = 7000;
-			//FString::Printf(TEXT("%f"), maxSpeed);
-			if (GEngine)
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), maxSpeed));
-		}
 
-	}
-}
-void AGameplayMechanicsCharacter::shootArrow()
-{
-	if (isCharging == false)
-	{
-		UWorld* const World = GetWorld();
-
-		const FRotator SpawnRotation = GetControlRotation();
-
-		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(GunOffset);
-		FActorSpawnParameters ActorSpawnParams;
-		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
-		if (arrowType == 1)
-		{
-			AStandardArrow* newArrow = GetWorld()->SpawnActor<AStandardArrow>(AStandardArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-			newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
-			maxSpeed = 1500;
-
-		}
-
-		else if (arrowType == 2)
-		{
-			AScatterArrow* newArrow = GetWorld()->SpawnActor<AScatterArrow>(AScatterArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-			newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
-			maxSpeed = 1500;
-
-
-			scatterArrowReady = false;
-			scatterTimer = 0.0f;
-
-			arrowType = 1;
-		}
-
-		else if (arrowType == 3)
-		{
-			ASonicArrow* newArrow = GetWorld()->SpawnActor<ASonicArrow>(ASonicArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-			newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
-			maxSpeed = 1500;
-		}
-	}
-
-}
 
 void AGameplayMechanicsCharacter::MoveForward(float Value)
 {
