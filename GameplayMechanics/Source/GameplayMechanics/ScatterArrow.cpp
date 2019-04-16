@@ -14,6 +14,13 @@ AScatterArrow::AScatterArrow()
 	// Die after 10 seconds by default
 	InitialLifeSpan = 10.0f;
 }
+void AScatterArrow::initArrow(float initialVelocity, float scatteredArrowsVelocity, int noOfBounces)
+{
+	numberOfBounces = noOfBounces;
+	scatterArrowVelocity = scatteredArrowsVelocity;
+	projectileMovement->SetVelocityInLocalSpace(FVector(initialVelocity, 0, 0));
+
+}
 
 // Called when the game starts or when spawned
 void AScatterArrow::BeginPlay()
@@ -38,76 +45,36 @@ void AScatterArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPri
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 		
 	}
-	Destroy();
-
-	float maxSpeed = 7000;
-	UWorld* const World = GetWorld();
-
-	FVector arrowAxes;
-	FVector rotationOtherActor;
-
-	UKismetMathLibrary::BreakRotator(OtherActor->GetActorRotation(), rotationOtherActor.X, rotationOtherActor.Y, rotationOtherActor.Z);
-
-	FVector idk = UKismetMathLibrary::GetReflectionVector(UKismetMathLibrary::GetDirectionUnitVector(GetActorLocation(), Hit.ImpactPoint), Hit.ImpactNormal);
-	
 	
 	FVector SpawnLocation = (GetActorLocation());
+	FRotator SpawnRotation;
 	FActorSpawnParameters ActorSpawnParams;
 	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	AFlyingArrow* newArrow[5];
 
-
-
+	FVector arrowAxes;
 	FVector oneLOL = GetActorForwardVector() - (2 * (GetActorForwardVector() * Hit.Normal) * Hit.Normal);
 	UKismetMathLibrary::BreakRotator(UKismetMathLibrary::MakeRotFromX(oneLOL), arrowAxes.X, arrowAxes.Y, arrowAxes.Z);
-	FRotator SpawnRotation;
-
-
-
+	
+	//Arrows from left to right when they spawn
 	SpawnRotation = UKismetMathLibrary::MakeRotator(arrowAxes.X, arrowAxes.Y, arrowAxes.Z - 25);
-
-
-
 	newArrow[0] = GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-	newArrow[0]->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
-
-
-
+	newArrow[0]->initArrow(scatterArrowVelocity, numberOfBounces);
 
 	SpawnRotation = UKismetMathLibrary::MakeRotator(arrowAxes.X, arrowAxes.Y + 15, arrowAxes.Z - 15);
-
-
-
-	newArrow[0] = GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-	newArrow[0]->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
-
-
+	newArrow[1] = GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
+	newArrow[1]->initArrow(scatterArrowVelocity, numberOfBounces);
 
 	SpawnRotation = UKismetMathLibrary::MakeRotator(arrowAxes.X, arrowAxes.Y, arrowAxes.Z);
-
-
-
-	newArrow[0] = GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-	newArrow[0]->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
-
-
-
+	newArrow[2] = GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
+	newArrow[2]->initArrow(scatterArrowVelocity, numberOfBounces);
 
 	SpawnRotation = UKismetMathLibrary::MakeRotator(arrowAxes.X, arrowAxes.Y + 15, arrowAxes.Z + 15);
-
-
-
-	newArrow[0] = GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-	newArrow[0]->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
-
-
-
-
+	newArrow[3] = GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
+	newArrow[3]->initArrow(scatterArrowVelocity, numberOfBounces);
 
 	SpawnRotation = UKismetMathLibrary::MakeRotator(arrowAxes.X, arrowAxes.Y, arrowAxes.Z + 25);
+	newArrow[4] = GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
+	newArrow[4]->initArrow(scatterArrowVelocity, numberOfBounces);
 
-
-
-	newArrow[0] = GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-	newArrow[0]->projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
+	Destroy();
 }

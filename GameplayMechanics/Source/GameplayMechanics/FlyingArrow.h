@@ -24,6 +24,12 @@ public:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
+
+	void initArrow(float initialVelocity, int noOfMaxBounces);
+
+private:
+	float arrowVelocity = 6000;
 	int numberOfBounces = 0;
+	int numberOfMaxBounces = 5;
 	FVector lastPosition;
 };

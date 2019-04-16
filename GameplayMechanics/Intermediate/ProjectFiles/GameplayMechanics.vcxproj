@@ -499,6 +499,10 @@
     <NMakeOutput>..\..\Binaries\HTML5\GameplayMechanics-HTML5-Shipping.js</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\GameplayMechanics\EnemyCharacter.cpp" />
+    <ClCompile Include="..\..\Source\GameplayMechanics\VacuumArrow.cpp" />
+    <ClInclude Include="..\..\Source\GameplayMechanics\EnemyCharacter.h" />
+    <ClInclude Include="..\..\Source\GameplayMechanics\VacuumArrow.h" />
     <None Include="..\..\GameplayMechanics.uproject" />
     <None Include="..\..\Source\GameplayMechanics.Target.cs" />
     <None Include="..\..\Source\GameplayMechanicsEditor.Target.cs" />

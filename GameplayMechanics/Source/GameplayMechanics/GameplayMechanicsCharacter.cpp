@@ -21,8 +21,10 @@ DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 AGameplayMechanicsCharacter::AGameplayMechanicsCharacter()
 {
 	// Set size for collision capsule
-	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
+	GetCapsuleComponent()->InitCapsuleSize(65.f, 96.0f);
 
+	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &AGameplayMechanicsCharacter::OnCapsuleOverlapBegin);
+	GetCapsuleComponent()->OnComponentEndOverlap.AddDynamic(this, &AGameplayMechanicsCharacter::OnCapsuleOverlapEnd);
 	// set our turn rates for input
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
@@ -52,7 +54,6 @@ AGameplayMechanicsCharacter::AGameplayMechanicsCharacter()
 		bowMesh->SetupAttachment(FirstPersonCameraComponent);
 		bowMesh->SetRelativeLocation(FVector(50.0f, -20.0f, -60.0f));
 		bowMesh->SetRenderCustomDepth(true);
-		bowMesh->CustomDepthStencilValue = 255;
 	}
 
 	arrowMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ArrowVisualRepresentation"));
@@ -62,15 +63,12 @@ AGameplayMechanicsCharacter::AGameplayMechanicsCharacter()
 		arrowMesh->SetStaticMesh(arrowMeshAsset.Object);
 		//offset the mesh so the sphere collider component is just behind the the tip of the mesh to give the effect of the tip going into an object
 		arrowMesh->SetupAttachment(FirstPersonCameraComponent);
-		arrowMesh->SetRelativeLocation(FVector(75.0f, 3.2f, -20.5f));
+		arrowMesh->SetRelativeLocation(FVector(70.0f, 3.2f, -20.5f));
 		arrowMesh->SetRelativeRotation(FRotator(-90, 90, -180));
 		arrowMesh->SetWorldScale3D(FVector(1.0f));
 		arrowMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 		arrowMesh->SetRenderCustomDepth(true);
-		arrowMesh->CustomDepthStencilValue = 255;
 	}
-	
-
 
 }
 
@@ -78,9 +76,13 @@ void AGameplayMechanicsCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
 	scatterTimer = scatterArrowCooldown;
 	sonicTimer = sonicArrowCooldown;
+	vacuumTimer = vacuumArrowCooldown;
+
 	currentArrowsAmmo = maxArrowsAmmo;
+
 	arrowMesh->SetMaterial(0, standardArrowMaterial);
 
 	
@@ -152,6 +154,11 @@ void AGameplayMechanicsCharacter::handleInput(float DeltaTime)
 		arrowMesh->SetMaterial(0, sonicArrowMaterial);
 		arrowType = Sonic;
 	}
+	else if (GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::Four) && vacuumArrowReady == true)
+	{
+		arrowMesh->SetMaterial(0, vacuumArrowMaterial);
+		arrowType = Vacuum;
+	}
 
 
 	//Reload the standard arrows
@@ -185,6 +192,19 @@ void AGameplayMechanicsCharacter::handleCooldowns(float DeltaTime)
 			sonicArrowReady = true;
 		}
 	}
+
+	//Handle cooldown for vacuum arrow
+	if (vacuumArrowReady == false)
+	{
+		vacuumTimer += DeltaTime;
+		if (vacuumTimer > vacuumArrowCooldown)
+		{
+
+			vacuumArrowReady = true;
+		}
+	}
+
+
 }
 
 void AGameplayMechanicsCharacter::bowPullBack(float DeltaTime)
@@ -240,13 +260,12 @@ void AGameplayMechanicsCharacter::shootArrow()
 	else if (arrowType == Scatter)
 	{
 		AScatterArrow* newArrow = GetWorld()->SpawnActor<AScatterArrow>(AScatterArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-		newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(currentChargedVelocity, 0, 0));
-		currentChargedVelocity = minVelocity;
-
-
+		newArrow->initArrow(currentChargedVelocity, scatterArrowVelocity, scatterArrowBounceAmount);
+		
 		scatterArrowReady = false;
 		scatterTimer = 0.0f;
 
+		currentChargedVelocity = minVelocity;
 		arrowType = Standard;
 		arrowMesh->SetMaterial(0, standardArrowMaterial);
 	}
@@ -254,14 +273,27 @@ void AGameplayMechanicsCharacter::shootArrow()
 	else if (arrowType == Sonic)
 	{
 		ASonicArrow* newArrow = GetWorld()->SpawnActor<ASonicArrow>(ASonicArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-		newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(currentChargedVelocity, 0, 0));
-		currentChargedVelocity = minVelocity;
+		newArrow->initArrow(currentChargedVelocity, sonicSphereRadius);
 
 		sonicArrowReady = false;
 		sonicTimer = 0.0f;
 
+		currentChargedVelocity = minVelocity;
 		arrowType = Standard;
 		arrowMesh->SetMaterial(0, standardArrowMaterial);
+	}
+	else if (arrowType == Vacuum)
+	{
+		AVacuumArrow* newArrow = GetWorld()->SpawnActor<AVacuumArrow>(AVacuumArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
+		newArrow->initArrow(currentChargedVelocity, vacuumMaxDelay, vacuumPullStrength);
+
+		vacuumArrowReady = false;
+		vacuumTimer = 0.0f;
+
+		currentChargedVelocity = minVelocity;
+		arrowType = Standard;
+		arrowMesh->SetMaterial(0, standardArrowMaterial);
+		
 	}
 
 	arrowMeshCurrentLocation = arrowMeshMinChargeLocation;
@@ -276,7 +308,8 @@ void AGameplayMechanicsCharacter::wallClimb(float DeltaTime)
 	if (canClimb == true)
 	{
 		FHitResult wallHitResult;
-		GetWorld()->LineTraceSingleByChannel(wallHitResult, GetActorLocation(), (GetActorLocation() + (GetActorForwardVector() * 60)), ECC_Visibility, CollisionParams);
+		GetWorld()->LineTraceSingleByChannel(wallHitResult, GetActorLocation(), (GetActorLocation() + (GetActorForwardVector() * 66)), ECC_Visibility, CollisionParams);
+		//DrawDebugLine(GetWorld(), GetActorLocation(), (GetActorLocation() + (GetActorForwardVector() * 66)), FColor(0, 255, 0), true, 0.1, 1, 0.2);
 
 		if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::SpaceBar))
 		{
@@ -295,7 +328,7 @@ void AGameplayMechanicsCharacter::wallClimb(float DeltaTime)
 		}
 
 
-		if ((GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::SpaceBar) && isClimbing == true) || (climbTime >= 0.7 && isClimbing == true))
+		if ((GetWorld()->GetFirstPlayerController()->WasInputKeyJustReleased(EKeys::SpaceBar) && isClimbing == true) || (climbTime >= 0.7 && isClimbing == true) || (!wallHitResult.bBlockingHit && isClimbing == true))
 		{
 			canClimb = false;
 		}
@@ -315,6 +348,25 @@ void AGameplayMechanicsCharacter::wallClimb(float DeltaTime)
 	}
 
 }
+void AGameplayMechanicsCharacter::OnCapsuleOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
+{
+	if (OtherActor && (OtherActor != this))
+	{
+		OtherComp->SetRenderCustomDepth(true);
+		OtherComp->SetVisibility(false);
+		OtherComp->SetVisibility(true);
+	}
+}
+void AGameplayMechanicsCharacter::OnCapsuleOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if (OtherActor && (OtherActor != this))
+	{
+		OtherComp->SetRenderCustomDepth(false);
+		OtherComp->SetVisibility(false);
+		OtherComp->SetVisibility(true);
+	}
+}
+
 
 
 void AGameplayMechanicsCharacter::MoveForward(float Value)

@@ -33,8 +33,12 @@ public:
 	UFUNCTION()
 		void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+
+
+
+	void initArrow(float initialVelocity, float sonicComponentRadius);
+
+private:
+	float sonicSphereRadius = 1000.0f;
 	USphereComponent* sonicCollisionComponent;
-
-	bool ifHit = false;
-
 };

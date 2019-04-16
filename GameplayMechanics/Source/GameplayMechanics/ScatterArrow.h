@@ -26,8 +26,15 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	
+	void initArrow(float initialVelocity, float scatteredArrowsVelocity, int noOfBounces);
 
+	
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
+private:
+	float scatterArrowVelocity = 6000;
+	int numberOfBounces = 5;
+
+	AFlyingArrow* newArrow[5];
 };

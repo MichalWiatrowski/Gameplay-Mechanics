@@ -31,7 +31,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void updateArrowVelocityRotation();
+	virtual void initArrow();
 
+	bool isHit = false;
+public:
 	USphereComponent* collisionComponent;
 	UProjectileMovementComponent* projectileMovement;
 	UStaticMeshComponent* arrowMesh;

@@ -50,6 +50,10 @@ ABaseArrow::ABaseArrow()
 
 }
 
+void ABaseArrow::initArrow()
+{
+}
+
 // Called when the game starts or when spawned
 void ABaseArrow::BeginPlay()
 {
@@ -92,3 +96,4 @@ void ABaseArrow::updateArrowVelocityRotation()
 	}
 
 }
+

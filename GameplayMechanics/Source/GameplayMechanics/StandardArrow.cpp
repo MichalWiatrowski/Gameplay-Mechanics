@@ -13,6 +13,8 @@ AStandardArrow::AStandardArrow()
 	
 	// Die after 10 seconds by default
 	InitialLifeSpan = 10.0f;
+
+	
 }
 
 // Called when the game starts or when spawned
@@ -34,12 +36,27 @@ void AStandardArrow::Tick(float DeltaTime)
 
 void AStandardArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+	
 	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
+	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL))
 	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		if (OtherActor->ActorHasTag(FName(TEXT("enemy"))))
+		{
+				FDamageEvent damageEvent;
+				OtherActor->TakeDamage(25, damageEvent, GetInstigatorController(), this);
+				Destroy();
+		}
+		else if (OtherComp->IsSimulatingPhysics())
+		{
+			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+			Destroy();
+		}
+
+
+
+	
 		
-		Destroy();
+		
 		
 	}
 }

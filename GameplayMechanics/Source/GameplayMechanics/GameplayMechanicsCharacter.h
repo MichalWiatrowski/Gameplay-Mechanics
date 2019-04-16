@@ -6,6 +6,7 @@
 #include "FlyingArrow.h"
 #include "ScatterArrow.h"
 #include "StandardArrow.h"
+#include "VacuumArrow.h"
 #include "GameFramework/Character.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Math/UnrealMathVectorCommon.h"
@@ -35,9 +36,9 @@ public:
 	
 
 
-	FVector arrowMeshMaxChargeLocation = (FVector(35.0f, 3.0f, -20.5f));
-	FVector arrowMeshCurrentLocation = (FVector(75.0f, 3.0f, -20.5f));
-	FVector arrowMeshMinChargeLocation = (FVector(75.0f, 3.0f, -20.5f));
+	FVector arrowMeshMaxChargeLocation = (FVector(30.0f, 3.0f, -20.5f));
+	FVector arrowMeshCurrentLocation = (FVector(70.0f, 3.0f, -20.5f));
+	FVector arrowMeshMinChargeLocation = (FVector(70.0f, 3.0f, -20.5f));
 	float currentChargedVelocity = 0.0f;
 
 	UPROPERTY(EditAnywhere, Category = "Custom Settings | ArrowTypes | Standard Arrow")
@@ -46,13 +47,17 @@ public:
 	UMaterial* scatterArrowMaterial;
 	UPROPERTY(EditAnywhere, Category = "Custom Settings | ArrowTypes | Sonic Arrow")
 	UMaterial* sonicArrowMaterial;
+	UPROPERTY(EditAnywhere, Category = "Custom Settings | ArrowTypes | Vacuum Arrow")
+	UMaterial* vacuumArrowMaterial;
 
 
 
 
+	UFUNCTION()
+		void OnCapsuleOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
-
-
+	UFUNCTION()
+		void OnCapsuleOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 
 	
@@ -69,25 +74,51 @@ public:
 
 	bool canSecondJump = false;
 
-	enum arrows { Standard, Scatter, Sonic } arrowType;
+	enum arrows { Standard, Scatter, Sonic, Vacuum} arrowType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | ArrowTypes | Standard Arrow")
 		int32 maxArrowsAmmo = 10;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Custom Settings | ArrowTypes | Standard Arrow")
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Custom Settings | ArrowTypes | Standard Arrow")
 		int32 currentArrowsAmmo = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | ArrowTypes | Scatter Arrow")
 	float scatterArrowCooldown = 5.0f;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Custom Settings | ArrowTypes | Scatter Arrow")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | ArrowTypes | Scatter Arrow")
+	float scatterArrowVelocity = 6000.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | ArrowTypes | Scatter Arrow")
+	int scatterArrowBounceAmount = 5;;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Custom Settings | ArrowTypes | Scatter Arrow")
 	float scatterTimer = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | ArrowTypes | Sonic Arrow")
 		float sonicArrowCooldown = 5.0f;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Custom Settings | ArrowTypes | Sonic Arrow")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | ArrowTypes | Sonic Arrow")
+		float sonicSphereRadius = 1000.0f;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Custom Settings | ArrowTypes | Sonic Arrow")
 		float sonicTimer = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | ArrowTypes | Vacuum Arrow")
+		float vacuumArrowCooldown = 5.0f;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Custom Settings | ArrowTypes | Vacuum Arrow")
+		float vacuumTimer = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | ArrowTypes | Vacuum Arrow")
+		float vacuumMaxDelay = 2.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | ArrowTypes | Vacuum Arrow")
+		float vacuumPullStrength = 1000.0f;
+
+
+
+
+
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Settings | Archer Settings")
@@ -105,7 +136,7 @@ public:
 
 	bool scatterArrowReady = true;
 	bool sonicArrowReady = true;
-
+	bool vacuumArrowReady = true;
 
 
 

@@ -118,6 +118,12 @@
     <ClInclude Include="..\..\Source\GameplayMechanics\Bow.h">
       <Filter>Source\GameplayMechanics</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\GameplayMechanics\VacuumArrow.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GameplayMechanics\EnemyCharacter.h">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\GameplayMechanics\BaseArrow.cpp">
@@ -127,6 +133,12 @@
       <Filter>Source\GameplayMechanics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\GameplayMechanics\Bow.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GameplayMechanics\VacuumArrow.cpp">
+      <Filter>Source\GameplayMechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GameplayMechanics\EnemyCharacter.cpp">
       <Filter>Source\GameplayMechanics</Filter>
     </ClCompile>
   </ItemGroup>

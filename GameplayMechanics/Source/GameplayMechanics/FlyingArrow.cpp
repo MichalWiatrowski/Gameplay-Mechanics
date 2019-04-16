@@ -17,6 +17,7 @@ AFlyingArrow::AFlyingArrow()
 
 	projectileMovement->bRotationFollowsVelocity = true;
 
+	//projectileMovement->
 	projectileMovement->bShouldBounce = true;
 	projectileMovement->Bounciness = 0;
 	projectileMovement->ProjectileGravityScale = 0;
@@ -26,7 +27,11 @@ AFlyingArrow::AFlyingArrow()
 
 	InitialLifeSpan = 10.0f;
 }
-
+void AFlyingArrow::initArrow(float initialVelocity, int noOfMaxBounces)
+{
+	arrowVelocity = initialVelocity;
+	numberOfMaxBounces = noOfMaxBounces;
+}
 // Called when the game starts or when spawned
 void AFlyingArrow::BeginPlay()
 {
@@ -46,7 +51,7 @@ void AFlyingArrow::Tick(float DeltaTime)
 
 
 	lastPosition = GetActorLocation();
-	projectileMovement->SetVelocityInLocalSpace(FVector(6000, 0, 0));
+	projectileMovement->SetVelocityInLocalSpace(FVector(arrowVelocity, 0, 0));
 
 }
 
@@ -64,29 +69,16 @@ void AFlyingArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrim
 	}
 
 	//If the number of bounces is over 5, destroy the actor
-	if (numberOfBounces > 5)
+	if (numberOfBounces > numberOfMaxBounces)
 		Destroy();
 	//otherwise increment the number of bounces
 	else
 		numberOfBounces++;
 
-	float maxSpeed = 6000;
-
-
-	UWorld* const World = GetWorld(); //get the world
-
-	FVector newArrowAxes = (((GetActorForwardVector() * Hit.Normal) * -3) * Hit.Normal) + GetActorForwardVector();
-	FVector arrowAxes;
-
+	//Calculate the reflection vector
 	FVector newReflectionVector = GetActorForwardVector() - (2 * (GetActorForwardVector() * Hit.Normal) * Hit.Normal);
 	SetActorRotation(UKismetMathLibrary::MakeRotFromX(newReflectionVector));
 
-
-
-	projectileMovement->SetVelocityInLocalSpace(FVector(maxSpeed, 0, 0));
-
-
-
-	maxSpeed = 6000;
+	projectileMovement->SetVelocityInLocalSpace(FVector(arrowVelocity, 0, 0));
 }
 

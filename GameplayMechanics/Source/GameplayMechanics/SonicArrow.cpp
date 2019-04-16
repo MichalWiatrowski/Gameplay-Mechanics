@@ -12,7 +12,7 @@ ASonicArrow::ASonicArrow()
 	collisionComponent->OnComponentHit.AddDynamic(this, &ASonicArrow::OnHit);		// set up a notification for when this component hits something blocking
 
 	sonicCollisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SonicComponent"));
-	sonicCollisionComponent->InitSphereRadius(0.01f);
+	sonicCollisionComponent->InitSphereRadius(0.001f);
 	sonicCollisionComponent->BodyInstance.SetCollisionProfileName("Projectile");
 	sonicCollisionComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	sonicCollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &ASonicArrow::OnOverlapBegin);	
@@ -20,8 +20,7 @@ ASonicArrow::ASonicArrow()
 
 	sonicCollisionComponent->SetupAttachment(RootComponent);
 
-	arrowMesh->SetRenderCustomDepth(true);
-	arrowMesh->CustomDepthStencilValue = 255;
+	
 	// Die after 10 seconds by default
 	InitialLifeSpan = 10.0f;
 }
@@ -30,33 +29,29 @@ ASonicArrow::ASonicArrow()
 void ASonicArrow::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
-
+void ASonicArrow::initArrow(float initialVelocity, float sonicComponentRadius)
+{
+	projectileMovement->SetVelocityInLocalSpace(FVector(initialVelocity, 0, 0));
+	sonicSphereRadius = sonicComponentRadius;
+}
 // Called every frame
 void ASonicArrow::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	updateArrowVelocityRotation();
-
-
-	
 }
-
-
 
 void ASonicArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	
-	sonicCollisionComponent->SetSphereRadius(1000.0f);
+	sonicCollisionComponent->SetSphereRadius(sonicSphereRadius);
 	
 	//projectileMovement->StopMovementImmediately();
 	RootComponent->AttachTo(OtherComp, NAME_None, EAttachLocation::KeepWorldPosition, false);
+	arrowMesh->SetRenderCustomDepth(true);
 	
 }
-
-
-
 
 void ASonicArrow::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
 {
