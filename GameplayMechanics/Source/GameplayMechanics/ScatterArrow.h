@@ -26,7 +26,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	
-	void initArrow(float initialVelocity, float scatteredArrowsVelocity, int noOfBounces);
+	void initArrow(float initialVelocity, float chargeTime, float scatteredArrowsVelocity, int noOfBounces);
 
 	
 	UFUNCTION()

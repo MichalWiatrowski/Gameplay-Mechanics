@@ -36,7 +36,7 @@ public:
 
 
 
-	void initArrow(float initialVelocity, float sonicComponentRadius);
+	void initArrow(float initialVelocity, float chargeTime, float sonicComponentRadius);
 
 private:
 	float sonicSphereRadius = 1000.0f;

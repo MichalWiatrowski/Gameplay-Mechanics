@@ -164,7 +164,7 @@ protected:
 
 
 
-
+	float chargeTime = 0.0f;
 
 
 

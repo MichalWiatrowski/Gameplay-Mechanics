@@ -23,7 +23,11 @@ void AStandardArrow::BeginPlay()
 	Super::BeginPlay();
 	
 }
-
+void AStandardArrow::initArrow(float initialVelocity, float chargeTime)
+{
+	projectileMovement->SetVelocityInLocalSpace(FVector(initialVelocity, 0, 0));
+	chargedTime = chargeTime;
+}
 // Called every frame
 void AStandardArrow::Tick(float DeltaTime)
 {
@@ -42,22 +46,36 @@ void AStandardArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPr
 	{
 		if (OtherActor->ActorHasTag(FName(TEXT("enemy"))))
 		{
+
+			if (OtherComp->IsSimulatingPhysics())
+			{
+				OtherComp->AddImpulseAtLocation(GetVelocity(), GetActorLocation()); //for the memes
+			}
+			else
+			{
 				FDamageEvent damageEvent;
-				OtherActor->TakeDamage(25, damageEvent, GetInstigatorController(), this);
-				Destroy();
+				OtherActor->TakeDamage(calculateDamage(chargedTime, 25, Hit.BoneName), damageEvent, GetInstigatorController(), this);
+			}
+				
+				
+				if (Hit.BoneName != NAME_None)
+				{
+					RootComponent->AttachTo(OtherComp, Hit.BoneName, EAttachLocation::KeepWorldPosition, true);
+				}
+				else
+				{
+					RootComponent->AttachTo(OtherComp, FName(TEXT("pelvisSocket")), EAttachLocation::KeepWorldPosition, true);
+				}
 		}
 		else if (OtherComp->IsSimulatingPhysics())
 		{
-			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-			Destroy();
+			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation()); 
+			RootComponent->AttachTo(OtherComp, NAME_None, EAttachLocation::KeepWorldPosition, true);
 		}
-
-
-
-	
-		
-		
-		
+		else
+		{
+			RootComponent->AttachTo(OtherComp, NAME_None, EAttachLocation::KeepWorldPosition, true);
+		}	
 	}
 }
 

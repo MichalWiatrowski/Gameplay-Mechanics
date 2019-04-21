@@ -36,11 +36,12 @@ public:
 		void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 
-	void initArrow(float initialVelocity, float maxDuration, float pullStrength);
+	void initArrow(float initialVelocity, float chargeTime, float maxDuration, float pullStrength);
 	
 private:
 	USphereComponent* enemyScannerCollisionComponent;
 	TArray<UPrimitiveComponent*> enemiesInRange;
+	
 
 	float currentTime = 0.0f;
 	float maxTime = 2.0f;

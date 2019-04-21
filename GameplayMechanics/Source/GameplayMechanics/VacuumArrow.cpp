@@ -18,7 +18,7 @@ AVacuumArrow::AVacuumArrow()
 	enemyScannerCollisionComponent->OnComponentEndOverlap.AddDynamic(this, &AVacuumArrow::OnOverlapEnd);
 
 	enemyScannerCollisionComponent->SetupAttachment(RootComponent);
-
+	enemyScannerCollisionComponent->SetRelativeLocation(FVector(-20.0f, 0.0f, 0.0f));
 
 	// Die after 10 seconds by default
 	InitialLifeSpan = 10.0f;
@@ -31,12 +31,13 @@ void AVacuumArrow::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AVacuumArrow::initArrow(float initialVelocity, float maxDuration, float pullStrength)
+void AVacuumArrow::initArrow(float initialVelocity, float chargeTime, float maxDuration, float pullStrength)
 {
 	
 	maxTime = maxDuration;
 	gravityPullStrength = pullStrength;
 	projectileMovement->SetVelocityInLocalSpace(FVector(initialVelocity, 0, 0));
+	chargedTime = chargeTime;
 }
 
 // Called every frame
@@ -60,21 +61,51 @@ void AVacuumArrow::Tick(float DeltaTime)
 				FCollisionQueryParams CollisionParams;
 				FHitResult actorVisibileHitResult;
 
-				GetWorld()->LineTraceSingleByChannel(actorVisibileHitResult, GetActorLocation(), enemiesInRange[i]->GetComponentLocation(), ECC_Visibility, CollisionParams);
-
-				if (actorVisibileHitResult.bBlockingHit && actorVisibileHitResult.GetComponent()->IsSimulatingPhysics())
+			
+				if (enemiesInRange[i]->ComponentHasTag((FName(TEXT("mesh")))))
 				{
-					DrawDebugLine(GetWorld(), GetActorLocation(), enemiesInRange[i]->GetComponentLocation(), FColor(0, 255, 0), true, 0.01, 0, 10);
+					GetWorld()->LineTraceSingleByChannel(actorVisibileHitResult, GetActorLocation(), enemiesInRange[i]->GetSocketLocation(FName(TEXT("pelvisSocket"))), ECC_Visibility, CollisionParams);
 
-					if (currentTime > maxTime)
+					if (actorVisibileHitResult.bBlockingHit && actorVisibileHitResult.GetComponent()->IsSimulatingPhysics() && actorVisibileHitResult.GetComponent()->ComponentHasTag((FName(TEXT("mesh")))))
 					{
-						FVector directionVector = GetActorLocation() - enemiesInRange[i]->GetComponentLocation();
+						DrawDebugLine(GetWorld(), GetActorLocation(), enemiesInRange[i]->GetSocketLocation(FName(TEXT("pelvisSocket"))), FColor(0, 255, 0), true, 0.1, 0, 10);
 
-						enemiesInRange[i]->AddImpulse(directionVector * gravityPullStrength);
-						//enemiesInRange[i]->SetSimulatePhysics(false);
-						//enemiesInRange[i]->SetSimulatePhysics(true);
+						if (currentTime > maxTime)
+						{
+							FVector directionVector = GetActorLocation() - enemiesInRange[i]->GetComponentLocation();
+
+							enemiesInRange[i]->AddImpulse(directionVector * gravityPullStrength);
+						}
 					}
+
+
+
+
 				}
+				else 
+				{
+					GetWorld()->LineTraceSingleByChannel(actorVisibileHitResult, GetActorLocation(), enemiesInRange[i]->GetComponentLocation(), ECC_Visibility, CollisionParams);
+					//DrawDebugLine(GetWorld(), GetActorLocation(), enemiesInRange[i]->GetComponentLocation(), FColor(255, 255, 0), true, 0.1, 0, 1);
+
+					if (actorVisibileHitResult.bBlockingHit && actorVisibileHitResult.GetComponent()->IsSimulatingPhysics() && actorVisibileHitResult.GetActor()->ActorHasTag((FName(TEXT("box")))))
+					{
+						DrawDebugLine(GetWorld(), GetActorLocation(), enemiesInRange[i]->GetComponentLocation(), FColor(0, 255, 0), true, 0.1, 0, 10);
+
+						if (currentTime > maxTime)
+						{
+							FVector directionVector = GetActorLocation() - enemiesInRange[i]->GetComponentLocation();
+
+							enemiesInRange[i]->AddImpulse(directionVector * gravityPullStrength);
+						}
+					}
+
+
+
+				}
+			
+				
+
+				
 			}		
 		}
 
@@ -90,8 +121,42 @@ void AVacuumArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrim
 
 	enemyScannerCollisionComponent->SetSphereRadius(1000.0f);
 
-	//projectileMovement->StopMovementImmediately();
-	RootComponent->AttachTo(OtherComp, NAME_None, EAttachLocation::KeepWorldPosition, false);
+	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL))
+	{
+		if (OtherActor->ActorHasTag(FName(TEXT("enemy"))))
+		{
+
+			if (OtherComp->IsSimulatingPhysics())
+			{
+				OtherComp->AddImpulseAtLocation(GetVelocity(), GetActorLocation()); //for the memes
+			}
+			else
+			{
+				FDamageEvent damageEvent;
+				OtherActor->TakeDamage(calculateDamage(chargedTime, 25, Hit.BoneName), damageEvent, GetInstigatorController(), this);
+			}
+
+
+			if (Hit.BoneName != NAME_None)
+			{
+				RootComponent->AttachTo(OtherComp, Hit.BoneName, EAttachLocation::KeepWorldPosition, true);
+			}
+			else
+			{
+				RootComponent->AttachTo(OtherComp, FName(TEXT("pelvisSocket")), EAttachLocation::KeepWorldPosition, true);
+			}
+			
+		}
+		else if (OtherComp->IsSimulatingPhysics())
+		{
+			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+			RootComponent->AttachTo(OtherComp, NAME_None, EAttachLocation::KeepWorldPosition, true);
+		}
+		else
+		{
+			RootComponent->AttachTo(OtherComp, NAME_None, EAttachLocation::KeepWorldPosition, true);
+		}
+	}
 
 	isHit = true;
 }
@@ -107,7 +172,6 @@ void AVacuumArrow::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 		{
 			enemiesInRange.Add(OtherComp);
 		}
-
 	}
 }
 void AVacuumArrow::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
@@ -116,6 +180,7 @@ void AVacuumArrow::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* Oth
 	{
 		if (enemiesInRange.Contains(OtherComp))
 		{
+			
 			enemiesInRange.Remove(OtherComp);
 		}
 	}

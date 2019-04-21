@@ -14,11 +14,12 @@ AScatterArrow::AScatterArrow()
 	// Die after 10 seconds by default
 	InitialLifeSpan = 10.0f;
 }
-void AScatterArrow::initArrow(float initialVelocity, float scatteredArrowsVelocity, int noOfBounces)
+void AScatterArrow::initArrow(float initialVelocity, float chargeTime, float scatteredArrowsVelocity, int noOfBounces)
 {
 	numberOfBounces = noOfBounces;
 	scatterArrowVelocity = scatteredArrowsVelocity;
 	projectileMovement->SetVelocityInLocalSpace(FVector(initialVelocity, 0, 0));
+	chargedTime = chargeTime;
 
 }
 
@@ -40,10 +41,29 @@ void AScatterArrow::Tick(float DeltaTime)
 void AScatterArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
+	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL))
 	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		if (OtherActor->ActorHasTag(FName(TEXT("enemy"))))
+		{
+
+			if (OtherComp->IsSimulatingPhysics())
+			{
+				OtherComp->AddImpulseAtLocation(GetVelocity(), GetActorLocation()); //for the memes
+			}
+			else
+			{
+				FDamageEvent damageEvent;
+				OtherActor->TakeDamage(calculateDamage(chargedTime, 25, Hit.BoneName), damageEvent, GetInstigatorController(), this);
+			}
+
+
 		
+		}
+		else if (OtherComp->IsSimulatingPhysics())
+		{
+			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());	
+		}
+	Destroy();
 	}
 	
 	FVector SpawnLocation = (GetActorLocation());
@@ -75,6 +95,4 @@ void AScatterArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPri
 	SpawnRotation = UKismetMathLibrary::MakeRotator(arrowAxes.X, arrowAxes.Y, arrowAxes.Z + 25);
 	newArrow[4] = GetWorld()->SpawnActor<AFlyingArrow>(AFlyingArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
 	newArrow[4]->initArrow(scatterArrowVelocity, numberOfBounces);
-
-	Destroy();
 }

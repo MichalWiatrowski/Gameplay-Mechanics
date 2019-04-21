@@ -21,7 +21,7 @@ public:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
-	
+	void initArrow(float initialVelocity, float chargeTime);
 
 protected:
 	// Called when the game starts or when spawned

@@ -30,6 +30,8 @@ public:
 private:
 	float arrowVelocity = 6000;
 	int numberOfBounces = 0;
+	int scatterArrowDamage = 35;
 	int numberOfMaxBounces = 5;
 	FVector lastPosition;
+	
 };

@@ -68,6 +68,9 @@ AGameplayMechanicsCharacter::AGameplayMechanicsCharacter()
 		arrowMesh->SetWorldScale3D(FVector(1.0f));
 		arrowMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 		arrowMesh->SetRenderCustomDepth(true);
+
+		arrowMesh->bCastDynamicShadow = false;
+		arrowMesh->CastShadow = false;
 	}
 
 }
@@ -83,6 +86,7 @@ void AGameplayMechanicsCharacter::BeginPlay()
 
 	currentArrowsAmmo = maxArrowsAmmo;
 
+	//currentChargedVelocity = minVelocity;
 	arrowMesh->SetMaterial(0, standardArrowMaterial);
 
 	
@@ -210,14 +214,15 @@ void AGameplayMechanicsCharacter::handleCooldowns(float DeltaTime)
 void AGameplayMechanicsCharacter::bowPullBack(float DeltaTime)
 {
 	
+	
 		if (currentChargedVelocity < maxVelocity)
 		{
 		
-			arrowMeshCurrentLocation = FMath::Lerp(arrowMeshCurrentLocation, arrowMeshMaxChargeLocation, DeltaTime * 2.5 * chargeSpeed);
+			arrowMeshCurrentLocation = FMath::Lerp(arrowMeshCurrentLocation, arrowMeshMaxChargeLocation, DeltaTime * 2.5  * chargeSpeed); //2.5 is animation speed (add variable)
 			arrowMesh->SetRelativeLocation(arrowMeshCurrentLocation);
 
 
-
+			chargeTime += DeltaTime;
 			currentChargedVelocity += maxVelocity * DeltaTime * chargeSpeed;
 
 			if (currentChargedVelocity > maxVelocity)
@@ -248,8 +253,13 @@ void AGameplayMechanicsCharacter::shootArrow()
 		if (currentArrowsAmmo > 0)
 		{
 			AStandardArrow* newArrow = GetWorld()->SpawnActor<AStandardArrow>(AStandardArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-			newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(currentChargedVelocity, 0, 0));
-			currentChargedVelocity = minVelocity;
+			//newArrow->projectileMovement->SetVelocityInLocalSpace(FVector(currentChargedVelocity, 0, 0));
+			newArrow->initArrow(currentChargedVelocity, chargeTime);
+
+
+
+
+			currentChargedVelocity = 0.0f;
 
 			currentArrowsAmmo--;
 		}
@@ -260,12 +270,12 @@ void AGameplayMechanicsCharacter::shootArrow()
 	else if (arrowType == Scatter)
 	{
 		AScatterArrow* newArrow = GetWorld()->SpawnActor<AScatterArrow>(AScatterArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-		newArrow->initArrow(currentChargedVelocity, scatterArrowVelocity, scatterArrowBounceAmount);
+		newArrow->initArrow(currentChargedVelocity, chargeTime, scatterArrowVelocity, scatterArrowBounceAmount);
 		
 		scatterArrowReady = false;
 		scatterTimer = 0.0f;
 
-		currentChargedVelocity = minVelocity;
+		currentChargedVelocity = 0.0f;
 		arrowType = Standard;
 		arrowMesh->SetMaterial(0, standardArrowMaterial);
 	}
@@ -273,29 +283,29 @@ void AGameplayMechanicsCharacter::shootArrow()
 	else if (arrowType == Sonic)
 	{
 		ASonicArrow* newArrow = GetWorld()->SpawnActor<ASonicArrow>(ASonicArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-		newArrow->initArrow(currentChargedVelocity, sonicSphereRadius);
+		newArrow->initArrow(currentChargedVelocity, chargeTime, sonicSphereRadius);
 
 		sonicArrowReady = false;
 		sonicTimer = 0.0f;
 
-		currentChargedVelocity = minVelocity;
+		currentChargedVelocity = 0.0f;
 		arrowType = Standard;
 		arrowMesh->SetMaterial(0, standardArrowMaterial);
 	}
 	else if (arrowType == Vacuum)
 	{
 		AVacuumArrow* newArrow = GetWorld()->SpawnActor<AVacuumArrow>(AVacuumArrow::StaticClass(), SpawnLocation, SpawnRotation, ActorSpawnParams);
-		newArrow->initArrow(currentChargedVelocity, vacuumMaxDelay, vacuumPullStrength);
+		newArrow->initArrow(currentChargedVelocity, chargeTime,vacuumMaxDelay, vacuumPullStrength);
 
 		vacuumArrowReady = false;
 		vacuumTimer = 0.0f;
 
-		currentChargedVelocity = minVelocity;
+		currentChargedVelocity = 0.0f;
 		arrowType = Standard;
 		arrowMesh->SetMaterial(0, standardArrowMaterial);
 		
 	}
-
+	chargeTime = 0.0f;
 	arrowMeshCurrentLocation = arrowMeshMinChargeLocation;
 	arrowMesh->SetRelativeLocation(arrowMeshCurrentLocation);
 }
@@ -350,7 +360,7 @@ void AGameplayMechanicsCharacter::wallClimb(float DeltaTime)
 }
 void AGameplayMechanicsCharacter::OnCapsuleOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
 {
-	if (OtherActor && (OtherActor != this))
+	if (OtherActor && (OtherActor != this) && OtherActor->ActorHasTag(FName(TEXT("arrow"))))
 	{
 		OtherComp->SetRenderCustomDepth(true);
 		OtherComp->SetVisibility(false);
@@ -359,7 +369,7 @@ void AGameplayMechanicsCharacter::OnCapsuleOverlapBegin(UPrimitiveComponent* Ove
 }
 void AGameplayMechanicsCharacter::OnCapsuleOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	if (OtherActor && (OtherActor != this))
+	if (OtherActor && (OtherActor != this) && OtherActor->ActorHasTag(FName(TEXT("arrow"))))
 	{
 		OtherComp->SetRenderCustomDepth(false);
 		OtherComp->SetVisibility(false);

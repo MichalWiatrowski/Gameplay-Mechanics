@@ -60,12 +60,28 @@ void AFlyingArrow::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrim
 {
 
 	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
+	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL))
 	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		if (OtherActor->ActorHasTag(FName(TEXT("enemy"))))
+		{
 
-		Destroy();
-
+			if (OtherComp->IsSimulatingPhysics())
+			{
+				OtherComp->AddImpulseAtLocation(GetVelocity(), GetActorLocation()); //for the memes
+			}
+			else
+			{
+				FDamageEvent damageEvent;
+				OtherActor->TakeDamage(scatterArrowDamage, damageEvent, GetInstigatorController(), this);
+			}
+			Destroy();
+		}
+		else if (OtherComp->IsSimulatingPhysics())
+		{
+			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+			Destroy();
+		}
+		
 	}
 
 	//If the number of bounces is over 5, destroy the actor

@@ -9,7 +9,7 @@ ABaseArrow::ABaseArrow()
 	PrimaryActorTick.bCanEverTick = true;
 
 	collisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
-	collisionComponent->InitSphereRadius(1.0f);
+	collisionComponent->InitSphereRadius(0.5f);
 	collisionComponent->BodyInstance.SetCollisionProfileName("Projectile");
 	collisionComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	collisionComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldStatic, ECollisionResponse::ECR_Block);
@@ -42,12 +42,12 @@ ABaseArrow::ABaseArrow()
 	{
 		arrowMesh->SetStaticMesh(arrowMeshAsset.Object);
 		//offset the mesh so the sphere collider component is just behind the the tip of the mesh to give the effect of the tip going into an object
-		arrowMesh->SetRelativeLocation(FVector(-35.0f, 1.0f, -3.0f));
+		arrowMesh->SetRelativeLocation(FVector(-25.0f, 1.0f, -3.0f));
 		arrowMesh->SetRelativeRotation(FRotator(0, -90, 0));
 		arrowMesh->SetWorldScale3D(FVector(1.0f));
 		arrowMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	}
-
+	Tags.Add(FName(TEXT("arrow")));
 }
 
 void ABaseArrow::initArrow()
@@ -95,5 +95,14 @@ void ABaseArrow::updateArrowVelocityRotation()
 
 	}
 
+}
+
+int ABaseArrow::calculateDamage(float chargedTime, int minimumDamage, FName boneName)
+{
+	int headshotBonus = 1;
+	if (boneName == "head" || boneName == "neck_01")
+		headshotBonus = 2;
+
+	return ((minimumDamage + (chargedTime * minimumDamage)) * headshotBonus);
 }
 

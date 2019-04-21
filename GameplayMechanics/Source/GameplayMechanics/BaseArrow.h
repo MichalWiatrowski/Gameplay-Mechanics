@@ -31,9 +31,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void updateArrowVelocityRotation();
+	int calculateDamage(float chargedTime, int minimumDamage, FName boneName);
 	virtual void initArrow();
 
 	bool isHit = false;
+	float chargedTime = 0.0f;
 public:
 	USphereComponent* collisionComponent;
 	UProjectileMovementComponent* projectileMovement;
